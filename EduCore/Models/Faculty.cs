@@ -16,5 +16,7 @@ namespace EduCore.Models
         public string? Description { get; set; }
 
         public DateTime CreatedDate { get; set; } = DateTime.Now;
+
+        public ICollection<AcademicProgram>? AcademicPrograms { get; set; }
     }
 }

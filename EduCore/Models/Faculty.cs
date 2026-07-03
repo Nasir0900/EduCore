@@ -17,6 +17,6 @@ namespace EduCore.Models
 
         public DateTime CreatedDate { get; set; } = DateTime.Now;
 
-        public ICollection<AcademicProgram>? AcademicPrograms { get; set; }
+        public ICollection<Department>? Departments { get; set; }
     }
 }

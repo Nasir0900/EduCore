@@ -1,4 +1,4 @@
-@model EduCore.Models.Department
+@model EduCore.Models.AcademicProgram
 
 @{
     ViewData["Title"] = "Details";
@@ -7,16 +7,16 @@
 <h1>Details</h1>
 
 <div>
-    <h4>Department</h4>
+    <h4>Academic Program</h4>
     <hr />
 
     <dl class="row">
 
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.DepartmentName)
+            @Html.DisplayNameFor(model => model.ProgramName)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.DepartmentName)
+            @Html.DisplayFor(model => model.ProgramName)
         </dd>
 
         <dt class="col-sm-2">
@@ -27,10 +27,10 @@
         </dd>
 
         <dt class="col-sm-2">
-            Faculty
+            Department
         </dt>
         <dd class="col-sm-10">
-            @Model.Faculty?.FacultyName
+            @Model.Department?.DepartmentName
         </dd>
 
         <dt class="col-sm-2">
@@ -44,6 +44,6 @@
 </div>
 
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.DepartmentId">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model?.AcademicProgramId">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>

@@ -4,6 +4,7 @@ using EduCore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EduCore.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260702194846_AddAcademicProgram")]
+    partial class AddAcademicProgram
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,12 +36,12 @@ namespace EduCore.Data.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("DepartmentId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
+
+                    b.Property<int>("FacultyId")
+                        .HasColumnType("int");
 
                     b.Property<string>("ProgramName")
                         .IsRequired()
@@ -47,7 +50,7 @@ namespace EduCore.Data.Migrations
 
                     b.HasKey("AcademicProgramId");
 
-                    b.HasIndex("DepartmentId");
+                    b.HasIndex("FacultyId");
 
                     b.ToTable("AcademicPrograms");
                 });
@@ -72,12 +75,7 @@ namespace EduCore.Data.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
-                    b.Property<int>("FacultyId")
-                        .HasColumnType("int");
-
                     b.HasKey("DepartmentId");
-
-                    b.HasIndex("FacultyId");
 
                     b.ToTable("Departments");
                 });
@@ -311,19 +309,8 @@ namespace EduCore.Data.Migrations
 
             modelBuilder.Entity("EduCore.Models.AcademicProgram", b =>
                 {
-                    b.HasOne("EduCore.Models.Department", "Department")
-                        .WithMany("AcademicPrograms")
-                        .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Department");
-                });
-
-            modelBuilder.Entity("EduCore.Models.Department", b =>
-                {
                     b.HasOne("EduCore.Models.Faculty", "Faculty")
-                        .WithMany("Departments")
+                        .WithMany("AcademicPrograms")
                         .HasForeignKey("FacultyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -382,14 +369,9 @@ namespace EduCore.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("EduCore.Models.Department", b =>
-                {
-                    b.Navigation("AcademicPrograms");
-                });
-
             modelBuilder.Entity("EduCore.Models.Faculty", b =>
                 {
-                    b.Navigation("Departments");
+                    b.Navigation("AcademicPrograms");
                 });
 #pragma warning restore 612, 618
         }

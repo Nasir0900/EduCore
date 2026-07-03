@@ -17,12 +17,15 @@ namespace EduCore.Models
         public string? Description { get; set; }
 
         [Required]
-        [Display(Name = "Faculty")]
-        public int FacultyId { get; set; }
+        [Display(Name = "Department")]
+        public int DepartmentId { get; set; }
 
-        [ForeignKey("FacultyId")]
-        public Faculty? Faculty { get; set; }
+        [ForeignKey("DepartmentId")]
+        public Department? Department { get; set; }
 
         public DateTime CreatedDate { get; set; } = DateTime.Now;
+
+        // Future relationship
+      //  public ICollection<Semester>? Semesters { get; set; }
     }
 }

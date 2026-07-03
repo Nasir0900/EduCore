@@ -11,6 +11,8 @@ namespace EduCore.Data
         public DbSet<Faculty> Faculties { get; set; }
 
         public DbSet<AcademicProgram> AcademicPrograms { get; set; }
+
+        public DbSet<AcademicSession> AcademicSessions { get; set; }
     }
 
 }

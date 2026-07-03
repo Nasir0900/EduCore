@@ -1,9 +1,11 @@
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using EduCore.Data;
 using EduCore.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace EduCore.Controllers
 {
@@ -44,10 +46,10 @@ namespace EduCore.Controllers
         // GET: AcademicPrograms/Create
         public IActionResult Create()
         {
-            ViewData["DepartmentId"] =
-                new SelectList(_context.Departments,
-                               "DepartmentId",
-                               "DepartmentName");
+            ViewData["DepartmentId"] = new SelectList(
+                _context.Departments,
+                "DepartmentId",
+                "DepartmentName");
 
             return View();
         }
@@ -55,7 +57,9 @@ namespace EduCore.Controllers
         // POST: AcademicPrograms/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AcademicProgramId,ProgramName,Description,DepartmentId")] AcademicProgram academicProgram)
+        public async Task<IActionResult> Create(
+            [Bind("AcademicProgramId,ProgramName,Description,DepartmentId,ProgramType,DurationYears,TotalParts,TotalSemesters")]
+            AcademicProgram academicProgram)
         {
             if (ModelState.IsValid)
             {
@@ -64,11 +68,11 @@ namespace EduCore.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewData["DepartmentId"] =
-                new SelectList(_context.Departments,
-                               "DepartmentId",
-                               "DepartmentName",
-                               academicProgram.DepartmentId);
+            ViewData["DepartmentId"] = new SelectList(
+                _context.Departments,
+                "DepartmentId",
+                "DepartmentName",
+                academicProgram.DepartmentId);
 
             return View(academicProgram);
         }
@@ -84,11 +88,11 @@ namespace EduCore.Controllers
             if (academicProgram == null)
                 return NotFound();
 
-            ViewData["DepartmentId"] =
-                new SelectList(_context.Departments,
-                               "DepartmentId",
-                               "DepartmentName",
-                               academicProgram.DepartmentId);
+            ViewData["DepartmentId"] = new SelectList(
+                _context.Departments,
+                "DepartmentId",
+                "DepartmentName",
+                academicProgram.DepartmentId);
 
             return View(academicProgram);
         }
@@ -96,7 +100,10 @@ namespace EduCore.Controllers
         // POST: AcademicPrograms/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("AcademicProgramId,ProgramName,Description,DepartmentId")] AcademicProgram academicProgram)
+        public async Task<IActionResult> Edit(
+            int id,
+            [Bind("AcademicProgramId,ProgramName,Description,DepartmentId,ProgramType,DurationYears,TotalParts,TotalSemesters")]
+            AcademicProgram academicProgram)
         {
             if (id != academicProgram.AcademicProgramId)
                 return NotFound();
@@ -119,11 +126,11 @@ namespace EduCore.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewData["DepartmentId"] =
-                new SelectList(_context.Departments,
-                               "DepartmentId",
-                               "DepartmentName",
-                               academicProgram.DepartmentId);
+            ViewData["DepartmentId"] = new SelectList(
+                _context.Departments,
+                "DepartmentId",
+                "DepartmentName",
+                academicProgram.DepartmentId);
 
             return View(academicProgram);
         }

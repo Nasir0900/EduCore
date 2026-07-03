@@ -1,0 +1,117 @@
+@model IEnumerable<EduCore.Models.AcademicSession>
+
+@{
+    ViewData["Title"] = "Academic Sessions";
+}
+
+<h1>Academic Sessions</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">
+        Create New Academic Session
+    </a>
+</p>
+
+<table class="table table-bordered table-hover">
+
+    <thead class="table-dark">
+        <tr>
+            <th>Session</th>
+            <th>Start Year</th>
+            <th>End Year</th>
+            <th>Academic Program</th>
+            <th>Admissions</th>
+            <th>Status</th>
+            <th>Created</th>
+            <th width="180">Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @item.SessionName
+                </td>
+
+                <td>
+                    @item.StartYear
+                </td>
+
+                <td>
+                    @item.EndYear
+                </td>
+
+                <td>
+                    @item.AcademicProgram?.ProgramName
+                </td>
+
+                <td>
+
+                    @if (item.IsAdmissionOpen)
+                    {
+                        <span class="badge bg-success">
+                            Open
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-danger">
+                            Closed
+                        </span>
+                    }
+
+                </td>
+
+                <td>
+
+                    @if (item.IsActive)
+                    {
+                        <span class="badge bg-primary">
+                            Active
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">
+                            Inactive
+                        </span>
+                    }
+
+                </td>
+
+                <td>
+                    @item.CreatedDate.ToShortDateString()
+                </td>
+
+                <td>
+
+                    <a asp-action="Edit"
+                       asp-route-id="@item.AcademicSessionId"
+                       class="btn btn-sm btn-warning">
+                        Edit
+                    </a>
+
+                    <a asp-action="Details"
+                       asp-route-id="@item.AcademicSessionId"
+                       class="btn btn-sm btn-info text-white">
+                        Details
+                    </a>
+
+                    <a asp-action="Delete"
+                       asp-route-id="@item.AcademicSessionId"
+                       class="btn btn-sm btn-danger">
+                        Delete
+                    </a>
+
+                </td>
+
+            </tr>
+        }
+
+    </tbody>
+
+</table>

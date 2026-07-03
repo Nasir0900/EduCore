@@ -1,54 +1,91 @@
 @model IEnumerable<EduCore.Models.AcademicProgram>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Academic Programs";
 }
 
-<h1>Index</h1>
+<h1>Academic Programs</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">
+        Create New Academic Program
+    </a>
 </p>
-<table class="table">
-    <thead>
+
+<table class="table table-bordered table-hover">
+
+    <thead class="table-dark">
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ProgramName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Department)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedDate)
-            </th>
-            <th></th>
+            <th>Program</th>
+            <th>Department</th>
+            <th>Type</th>
+            <th>Duration</th>
+            <th>Parts</th>
+            <th>Semesters</th>
+            <th>Created</th>
+            <th width="190">Actions</th>
         </tr>
     </thead>
+
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(model => item.ProgramName)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.Description)
-            </td>
-            <td>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @item.ProgramName
+                </td>
+
+                <td>
                     @item.Department?.DepartmentName
-            </td>
-       
-            <td>
-                @Html.DisplayFor(model => item.CreatedDate)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.AcademicProgramId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.AcademicProgramId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.AcademicProgramId">Delete</a>
-            </td>
-        </tr>
-}
+                </td>
+
+                <td>
+                    @item.ProgramType
+                </td>
+
+                <td>
+                    @item.DurationYears Years
+                </td>
+
+                <td>
+                    @item.TotalParts
+                </td>
+
+                <td>
+                    @item.TotalSemesters
+                </td>
+
+                <td>
+                    @item.CreatedDate.ToShortDateString()
+                </td>
+
+                <td>
+
+                    <a asp-action="Edit"
+                       asp-route-id="@item.AcademicProgramId"
+                       class="btn btn-sm btn-warning">
+                        Edit
+                    </a>
+
+                    <a asp-action="Details"
+                       asp-route-id="@item.AcademicProgramId"
+                       class="btn btn-sm btn-info text-white">
+                        Details
+                    </a>
+
+                    <a asp-action="Delete"
+                       asp-route-id="@item.AcademicProgramId"
+                       class="btn btn-sm btn-danger">
+                        Delete
+                    </a>
+
+                </td>
+
+            </tr>
+        }
+
     </tbody>
+
 </table>

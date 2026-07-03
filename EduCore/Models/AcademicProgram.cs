@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using EduCore.Enums;
 
 namespace EduCore.Models
 {
@@ -16,6 +17,7 @@ namespace EduCore.Models
         [StringLength(250)]
         public string? Description { get; set; }
 
+        // Department
         [Required]
         [Display(Name = "Department")]
         public int DepartmentId { get; set; }
@@ -23,9 +25,44 @@ namespace EduCore.Models
         [ForeignKey("DepartmentId")]
         public Department? Department { get; set; }
 
+        // Program Information
+        [Required]
+        [Display(Name = "Program Type")]
+        public ProgramType ProgramType { get; set; }
+
+        [Required]
+        [Display(Name = "Duration (Years)")]
+        [Range(1, 10)]
+        public int DurationYears { get; set; }
+
+        [Required]
+        [Display(Name = "Total Parts")]
+        [Range(1, 10)]
+        public int TotalParts { get; set; }
+
+        [Required]
+        [Display(Name = "Total Semesters")]
+        [Range(1, 20)]
+        public int TotalSemesters { get; set; }
+
         public DateTime CreatedDate { get; set; } = DateTime.Now;
 
-        // Future relationship
-      //  public ICollection<Semester>? Semesters { get; set; }
+        // Navigation Property
+        public ICollection<AcademicSession>? AcademicSessions { get; set; }
     }
 }
+//public int DurationYears { get; set; }
+
+  //      [Required]
+    //    [Display(Name = "Total Parts")]
+      //  public int TotalParts { get; set; }
+
+        //[Required]
+        //[Display(Name = "Total Semesters")]
+        //public int TotalSemesters { get; set; }
+
+        //public DateTime CreatedDate { get; set; } = DateTime.Now;
+
+//        public ICollection<AcademicSession>? AcademicSessions { get; set; }
+  //  }
+//}

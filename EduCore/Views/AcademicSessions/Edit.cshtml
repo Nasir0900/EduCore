@@ -1,0 +1,80 @@
+@model EduCore.Models.AcademicSession
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Academic Session</h4>
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+
+        <form asp-action="Edit">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input type="hidden" asp-for="AcademicSessionId" />
+
+            <div class="form-group">
+                <label asp-for="SessionName" class="control-label"></label>
+                <input asp-for="SessionName" class="form-control" />
+                <span asp-validation-for="SessionName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="StartYear" class="control-label"></label>
+                <input asp-for="StartYear" class="form-control" />
+                <span asp-validation-for="StartYear" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="EndYear" class="control-label"></label>
+                <input asp-for="EndYear" class="form-control" />
+                <span asp-validation-for="EndYear" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="AcademicProgramId" class="control-label"></label>
+
+                <select asp-for="AcademicProgramId"
+                        class="form-control"
+                        asp-items="ViewBag.AcademicProgramId">
+                </select>
+
+                <span asp-validation-for="AcademicProgramId" class="text-danger"></span>
+            </div>
+
+            <div class="form-check mt-3">
+                <input asp-for="IsAdmissionOpen" class="form-check-input" />
+                <label asp-for="IsAdmissionOpen" class="form-check-label"></label>
+            </div>
+
+            <div class="form-check">
+                <input asp-for="IsActive" class="form-check-input" />
+                <label asp-for="IsActive" class="form-check-label"></label>
+            </div>
+
+            <div class="form-group mt-3">
+                <input type="submit"
+                       value="Save"
+                       class="btn btn-primary" />
+
+                <a asp-action="Index"
+                   class="btn btn-secondary">
+                    Cancel
+                </a>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

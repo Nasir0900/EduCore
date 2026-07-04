@@ -20,6 +20,13 @@
     </dd>
 
     <dt class="col-sm-3">
+        @Html.DisplayNameFor(model => model.ProgramCode)
+    </dt>
+    <dd class="col-sm-9">
+        @Html.DisplayFor(model => model.ProgramCode)
+    </dd>
+
+    <dt class="col-sm-3">
         @Html.DisplayNameFor(model => model.Description)
     </dt>
     <dd class="col-sm-9">
@@ -44,7 +51,7 @@
         @Html.DisplayNameFor(model => model.DurationYears)
     </dt>
     <dd class="col-sm-9">
-        @Html.DisplayFor(model => model.DurationYears)
+        @Html.DisplayFor(model => model.DurationYears) Years
     </dd>
 
     <dt class="col-sm-3">

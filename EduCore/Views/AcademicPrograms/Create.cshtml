@@ -21,6 +21,13 @@
                 <span asp-validation-for="ProgramName" class="text-danger"></span>
             </div>
 
+            <!-- NEW -->
+            <div class="form-group mb-3">
+                <label asp-for="ProgramCode" class="control-label"></label>
+                <input asp-for="ProgramCode" class="form-control" placeholder="e.g. BSPHY" />
+                <span asp-validation-for="ProgramCode" class="text-danger"></span>
+            </div>
+
             <div class="form-group mb-3">
                 <label asp-for="Description" class="control-label"></label>
                 <textarea asp-for="Description" class="form-control" rows="3"></textarea>

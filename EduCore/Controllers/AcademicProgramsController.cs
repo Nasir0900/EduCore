@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using EduCore.Data;
 using EduCore.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace EduCore.Controllers
@@ -58,7 +56,7 @@ namespace EduCore.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(
-            [Bind("AcademicProgramId,ProgramName,Description,DepartmentId,ProgramType,DurationYears,TotalParts,TotalSemesters")]
+            [Bind("AcademicProgramId,ProgramName,ProgramCode,Description,DepartmentId,ProgramType,DurationYears,TotalParts,TotalSemesters")]
             AcademicProgram academicProgram)
         {
             if (ModelState.IsValid)
@@ -102,7 +100,7 @@ namespace EduCore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(
             int id,
-            [Bind("AcademicProgramId,ProgramName,Description,DepartmentId,ProgramType,DurationYears,TotalParts,TotalSemesters")]
+            [Bind("AcademicProgramId,ProgramName,ProgramCode,Description,DepartmentId,ProgramType,DurationYears,TotalParts,TotalSemesters")]
             AcademicProgram academicProgram)
         {
             if (id != academicProgram.AcademicProgramId)

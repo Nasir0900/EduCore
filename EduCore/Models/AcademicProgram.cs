@@ -13,8 +13,15 @@ namespace EduCore.Models
         [Display(Name = "Program Name")]
         [StringLength(100)]
         public string ProgramName { get; set; } = string.Empty;
-
+        [Required]
+       
+        [StringLength(10)]
+        [Display(Name = "Program Code")]
+        public string ProgramCode { get; set; } = string.Empty;
+        
         [StringLength(250)]
+
+
         public string? Description { get; set; }
 
         // Department
@@ -51,18 +58,3 @@ namespace EduCore.Models
         public ICollection<AcademicSession>? AcademicSessions { get; set; }
     }
 }
-//public int DurationYears { get; set; }
-
-  //      [Required]
-    //    [Display(Name = "Total Parts")]
-      //  public int TotalParts { get; set; }
-
-        //[Required]
-        //[Display(Name = "Total Semesters")]
-        //public int TotalSemesters { get; set; }
-
-        //public DateTime CreatedDate { get; set; } = DateTime.Now;
-
-//        public ICollection<AcademicSession>? AcademicSessions { get; set; }
-  //  }
-//}

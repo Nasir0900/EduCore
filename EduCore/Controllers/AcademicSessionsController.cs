@@ -1,5 +1,5 @@
-
 using EduCore.Data;
+using EduCore.Interfaces;
 using EduCore.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -10,19 +10,25 @@ namespace EduCore.Controllers
     public class AcademicSessionsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IAcademicStructureService _academicStructureService;
 
-        public AcademicSessionsController(ApplicationDbContext context)
+        public AcademicSessionsController(
+            ApplicationDbContext context,
+            IAcademicStructureService academicStructureService)
         {
             _context = context;
+            _academicStructureService = academicStructureService;
         }
 
         // GET: AcademicSessions
         public async Task<IActionResult> Index()
         {
-            var academicSessions = _context.AcademicSessions
-                                           .Include(a => a.AcademicProgram);
+            var academicSessions = await _context.AcademicSessions
+                .Include(a => a.AcademicProgram)
+                .Include(a => a.Parts)
+                .ToListAsync();
 
-            return View(await academicSessions.ToListAsync());
+            return View(academicSessions);
         }
 
         // GET: AcademicSessions/Details/5
@@ -32,18 +38,51 @@ namespace EduCore.Controllers
                 return NotFound();
 
             var academicSession = await _context.AcademicSessions
-                                                .Include(a => a.AcademicProgram)
-                                                .FirstOrDefaultAsync(m => m.AcademicSessionId == id);
+                .Include(a => a.AcademicProgram)
+                .Include(a => a.Parts)
+                    .ThenInclude(p => p.Semesters)
+                .FirstOrDefaultAsync(m => m.AcademicSessionId == id);
 
             if (academicSession == null)
                 return NotFound();
 
+            ViewBag.StructureGenerated =
+                await _academicStructureService.StructureExistsAsync(academicSession.AcademicSessionId);
+
             return View(academicSession);
+        }
+
+        // POST: AcademicSessions/GenerateStructure/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> GenerateStructure(int id)
+        {
+            try
+            {
+                await _academicStructureService.GenerateAcademicStructureAsync(id);
+
+                TempData["Success"] = "Academic Structure generated successfully.";
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+            }
+
+            return RedirectToAction(nameof(Details), new { id });
         }
 
         // GET: AcademicSessions/Create
         public IActionResult Create()
         {
+            ViewBag.AcademicPrograms = _context.AcademicPrograms
+                .Select(p => new
+                {
+                    p.AcademicProgramId,
+                    p.ProgramName,
+                    p.DurationYears
+                })
+                .ToList();
+
             ViewData["AcademicProgramId"] = new SelectList(
                 _context.AcademicPrograms,
                 "AcademicProgramId",
@@ -55,26 +94,33 @@ namespace EduCore.Controllers
         // POST: AcademicSessions/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AcademicSessionId,SessionName,StartYear,EndYear,AcademicProgramId,IsAdmissionOpen,IsActive")] AcademicSession academicSession)
+        public async Task<IActionResult> Create([Bind("AcademicSessionId,StartYear,AcademicProgramId,IsAdmissionOpen,IsActive")] AcademicSession academicSession)
         {
-            if (academicSession.EndYear < academicSession.StartYear)
+            var program = await _context.AcademicPrograms
+                .FirstOrDefaultAsync(p => p.AcademicProgramId == academicSession.AcademicProgramId);
+
+            if (program == null)
             {
-                ModelState.AddModelError("EndYear", "End Year cannot be less than Start Year.");
+                ModelState.AddModelError("", "Invalid Academic Program.");
+            }
+            else
+            {
+                academicSession.EndYear = academicSession.StartYear + program.DurationYears - 1;
+                academicSession.SessionName = $"{academicSession.StartYear}-{academicSession.EndYear}";
             }
 
             bool exists = await _context.AcademicSessions.AnyAsync(a =>
                 a.AcademicProgramId == academicSession.AcademicProgramId &&
-                a.StartYear == academicSession.StartYear &&
-                a.EndYear == academicSession.EndYear);
+                a.StartYear == academicSession.StartYear);
 
             if (exists)
             {
-                ModelState.AddModelError("", "This Academic Session already exists for the selected Academic Program.");
+                ModelState.AddModelError("", "This Academic Session already exists.");
             }
 
             if (ModelState.IsValid)
             {
-                _context.Add(academicSession);
+                _context.AcademicSessions.Add(academicSession);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -99,6 +145,15 @@ namespace EduCore.Controllers
             if (academicSession == null)
                 return NotFound();
 
+            ViewBag.AcademicPrograms = _context.AcademicPrograms
+    .Select(p => new
+    {
+        p.AcademicProgramId,
+        p.ProgramName,
+        p.DurationYears
+    })
+    .ToList();
+
             ViewData["AcademicProgramId"] = new SelectList(
                 _context.AcademicPrograms,
                 "AcademicProgramId",
@@ -111,30 +166,38 @@ namespace EduCore.Controllers
         // POST: AcademicSessions/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("AcademicSessionId,SessionName,StartYear,EndYear,AcademicProgramId,IsAdmissionOpen,IsActive")] AcademicSession academicSession)
+        public async Task<IActionResult> Edit(int id,
+     [Bind("AcademicSessionId,StartYear,AcademicProgramId,IsAdmissionOpen,IsActive")]
+    AcademicSession academicSession)
         {
             if (id != academicSession.AcademicSessionId)
                 return NotFound();
 
-            if (academicSession.EndYear < academicSession.StartYear)
+            var existingSession = await _context.AcademicSessions
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.AcademicSessionId == id);
+
+            if (existingSession == null)
+                return NotFound();
+
+            var program = await _context.AcademicPrograms
+                .FirstOrDefaultAsync(p => p.AcademicProgramId == academicSession.AcademicProgramId);
+
+            if (program == null)
             {
-                ModelState.AddModelError("EndYear", "End Year cannot be less than Start Year.");
+                ModelState.AddModelError("", "Invalid Academic Program.");
+            }
+            else
+            {
+                academicSession.EndYear = academicSession.StartYear + program.DurationYears - 1;
+                academicSession.SessionName = $"{academicSession.StartYear}-{academicSession.EndYear}";
+                academicSession.CreatedDate = existingSession.CreatedDate;
             }
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(academicSession);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!AcademicSessionExists(academicSession.AcademicSessionId))
-                        return NotFound();
-
-                    throw;
-                }
+                _context.Update(academicSession);
+                await _context.SaveChangesAsync();
 
                 return RedirectToAction(nameof(Index));
             }
@@ -155,8 +218,8 @@ namespace EduCore.Controllers
                 return NotFound();
 
             var academicSession = await _context.AcademicSessions
-                                                .Include(a => a.AcademicProgram)
-                                                .FirstOrDefaultAsync(m => m.AcademicSessionId == id);
+                .Include(a => a.AcademicProgram)
+                .FirstOrDefaultAsync(m => m.AcademicSessionId == id);
 
             if (academicSession == null)
                 return NotFound();

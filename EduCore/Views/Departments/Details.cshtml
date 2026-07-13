@@ -1,49 +1,75 @@
 @model EduCore.Models.Department
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Department Details";
 }
 
-<h1>Details</h1>
+<h2>Department Details</h2>
 
-<div>
-    <h4>Department</h4>
-    <hr />
+<hr />
 
-    <dl class="row">
+<div class="card shadow-sm">
 
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.DepartmentName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.DepartmentName)
-        </dd>
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">Department Information</h5>
+    </div>
 
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
+    <div class="card-body">
 
-        <dt class="col-sm-2">
-            Faculty
-        </dt>
-        <dd class="col-sm-10">
-            @Model.Faculty?.FacultyName
-        </dd>
+        <dl class="row">
 
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CreatedDate)
-        </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.DepartmentName)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.DepartmentName)
+            </dd>
 
-    </dl>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.DepartmentCode)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.DepartmentCode)
+            </dd>
+
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+
+            <dt class="col-sm-3">
+                Faculty
+            </dt>
+            <dd class="col-sm-9">
+                @Model.Faculty?.FacultyName
+            </dd>
+
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </dt>
+            <dd class="col-sm-9">
+                @Model.CreatedDate.ToString("dd MMM yyyy")
+            </dd>
+
+        </dl>
+
+    </div>
+
 </div>
 
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.DepartmentId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="mt-3">
+
+    <a asp-action="Edit"
+       asp-route-id="@Model.DepartmentId"
+       class="btn btn-warning">
+        Edit
+    </a>
+
+    <a asp-action="Index"
+       class="btn btn-secondary">
+        Back to List
+    </a>
+
 </div>

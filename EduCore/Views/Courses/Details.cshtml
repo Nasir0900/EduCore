@@ -1,0 +1,181 @@
+﻿@model EduCore.Models.Course
+
+@{
+    ViewData["Title"] = "Course Details";
+}
+
+<h2>Course Details</h2>
+
+<hr />
+
+<div>
+
+    <dl class="row">
+
+        <dt class="col-sm-3">
+            Course Code
+        </dt>
+
+        <dd class="col-sm-9">
+            <span class="badge bg-dark">
+                @Model.CourseCode
+            </span>
+        </dd>
+
+        <dt class="col-sm-3">
+            Course Title
+        </dt>
+
+        <dd class="col-sm-9">
+            @Model.CourseTitle
+        </dd>
+
+        <dt class="col-sm-3">
+            Department
+        </dt>
+
+        <dd class="col-sm-9">
+            @Model.Department?.DepartmentName
+        </dd>
+
+        <dt class="col-sm-3">
+            Semester
+        </dt>
+
+        <dd class="col-sm-9">
+            @Model.Semester?.SemesterName
+        </dd>
+
+        <dt class="col-sm-3">
+            Course Type
+        </dt>
+
+        <dd class="col-sm-9">
+            @Model.CourseType
+        </dd>
+
+        <dt class="col-sm-3">
+            Course Category
+        </dt>
+
+        <dd class="col-sm-9">
+            @Model.CourseCategory
+        </dd>
+
+        <dt class="col-sm-3">
+            Credit Hours
+        </dt>
+
+        <dd class="col-sm-9">
+            @Model.CreditHours
+        </dd>
+
+        <dt class="col-sm-3">
+            Theory Hours
+        </dt>
+
+        <dd class="col-sm-9">
+            @Model.TheoryHours
+        </dd>
+
+        <dt class="col-sm-3">
+            Practical Hours
+        </dt>
+
+        <dd class="col-sm-9">
+            @Model.PracticalHours
+        </dd>
+
+        <dt class="col-sm-3">
+            Total Marks
+        </dt>
+
+        <dd class="col-sm-9">
+            @Model.TotalMarks
+        </dd>
+
+        <dt class="col-sm-3">
+            Passing Marks
+        </dt>
+
+        <dd class="col-sm-9">
+            @Model.PassingMarks
+        </dd>
+
+        <dt class="col-sm-3">
+            Display Order
+        </dt>
+
+        <dd class="col-sm-9">
+            @Model.DisplayOrder
+        </dd>
+
+        <dt class="col-sm-3">
+            Maximum Enrollment
+        </dt>
+
+        <dd class="col-sm-9">
+            @(Model.MaximumEnrollment?.ToString() ?? "Unlimited")
+        </dd>
+
+        <dt class="col-sm-3">
+            Prerequisite
+        </dt>
+
+        <dd class="col-sm-9">
+            @(Model.PrerequisiteCourse?.CourseTitle ?? "None")
+        </dd>
+
+        <dt class="col-sm-3">
+            Compulsory
+        </dt>
+
+        <dd class="col-sm-9">
+            @(Model.IsCompulsory ? "Yes" : "No")
+        </dd>
+
+        <dt class="col-sm-3">
+            Status
+        </dt>
+
+        <dd class="col-sm-9">
+            @if (Model.IsActive)
+            {
+                <span class="badge bg-success">
+                    Active
+                </span>
+            }
+            else
+            {
+                <span class="badge bg-danger">
+                    Inactive
+                </span>
+            }
+        </dd>
+
+        <dt class="col-sm-3">
+            Created Date
+        </dt>
+
+        <dd class="col-sm-9">
+            @Model.CreatedDate.ToString("dd MMM yyyy")
+        </dd>
+
+    </dl>
+
+</div>
+
+<div>
+
+    <a asp-action="Edit"
+       asp-route-id="@Model.CourseId"
+       class="btn btn-warning">
+        Edit
+    </a>
+
+    <a asp-action="Index"
+       class="btn btn-secondary">
+        Back
+    </a>
+
+</div>

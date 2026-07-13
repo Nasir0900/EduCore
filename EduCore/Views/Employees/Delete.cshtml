@@ -1,0 +1,76 @@
+﻿@model EduCore.Models.Employee
+
+@{
+    ViewData["Title"] = "Delete Employee";
+}
+
+<h2>Delete Employee</h2>
+
+<div class="alert alert-danger">
+
+    <h4>Are you sure you want to delete this employee?</h4>
+
+    <p>
+        This action cannot be undone.
+    </p>
+
+</div>
+
+<div class="card">
+
+    <div class="card-header bg-danger text-white">
+
+        Employee Information
+
+    </div>
+
+    <div class="card-body">
+
+        <table class="table table-borderless">
+
+            <tr>
+                <th width="200">Employee Number</th>
+                <td>@Model.EmployeeNumber</td>
+            </tr>
+
+            <tr>
+                <th>Name</th>
+                <td>@Model.FullName</td>
+            </tr>
+
+            <tr>
+                <th>Department</th>
+                <td>@Model.Department?.DepartmentName</td>
+            </tr>
+
+            <tr>
+                <th>Designation</th>
+                <td>@Model.Designation?.DesignationName</td>
+            </tr>
+
+        </table>
+
+        <form asp-action="Delete">
+
+            <input type="hidden"
+                   asp-for="EmployeeId" />
+
+            <button type="submit"
+                    class="btn btn-danger">
+
+                Delete Employee
+
+            </button>
+
+            <a asp-action="Index"
+               class="btn btn-secondary">
+
+                Cancel
+
+            </a>
+
+        </form>
+
+    </div>
+
+</div>

@@ -1,0 +1,252 @@
+﻿@model EduCore.Models.Employee
+
+@{
+    ViewData["Title"] = "Employee Profile";
+}
+
+<h2>Employee Profile</h2>
+
+<hr />
+
+<div class="card shadow">
+
+    <div class="card-header bg-primary text-white">
+
+        <h4 class="mb-0">
+
+            @Model.FullName
+
+        </h4>
+
+    </div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-md-3 text-center">
+
+                <img src="~/images/no-image.png"
+                     class="img-thumbnail"
+                     style="width:180px;height:220px;" />
+
+                <br /><br />
+
+                <span class="badge bg-secondary">
+
+                    @Model.EmployeeNumber
+
+                </span>
+
+            </div>
+
+            <div class="col-md-9">
+
+                <h5 class="text-primary">
+
+                    Personal Information
+
+                </h5>
+
+                <table class="table table-borderless">
+
+                    <tr>
+
+                        <th width="200">First Name</th>
+
+                        <td>@Model.FirstName</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <th>Last Name</th>
+
+                        <td>@Model.LastName</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <th>Father Name</th>
+
+                        <td>@Model.FatherName</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <th>CNIC</th>
+
+                        <td>@Model.CNIC</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <th>Gender</th>
+
+                        <td>@Model.Gender</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <th>Date of Birth</th>
+
+                        <td>@Model.DateOfBirth?.ToString("dd MMM yyyy")</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <th>Blood Group</th>
+
+                        <td>@Model.BloodGroup</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <th>Marital Status</th>
+
+                        <td>@Model.MaritalStatus</td>
+
+                    </tr>
+
+                </table>
+                <hr />
+
+                <h5 class="text-primary">
+                    Employment Information
+                </h5>
+
+                <table class="table table-borderless">
+
+                    <tr>
+                        <th width="200">Faculty</th>
+                        <td>@Model.Faculty?.FacultyName</td>
+                    </tr>
+
+                    <tr>
+                        <th>Department</th>
+                        <td>@Model.Department?.DepartmentName</td>
+                    </tr>
+
+                    <tr>
+                        <th>Designation</th>
+                        <td>@Model.Designation?.DesignationName</td>
+                    </tr>
+
+                    <tr>
+                        <th>Employment Type</th>
+                        <td>@Model.EmploymentType?.EmploymentTypeName</td>
+                    </tr>
+
+                    <tr>
+                        <th>Joining Date</th>
+                        <td>@Model.JoiningDate.ToString("dd MMM yyyy")</td>
+                    </tr>
+
+                    <tr>
+                        <th>Status</th>
+                        <td>
+                            @if (Model.IsActive)
+                            {
+                                <span class="badge bg-success">
+                                    Active
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger">
+                                    Inactive
+                                </span>
+                            }
+                        </td>
+                    </tr>
+
+                </table>
+
+                <hr />
+
+                <h5 class="text-primary">
+                    Contact Information
+                </h5>
+
+                <table class="table table-borderless">
+
+                    <tr>
+                        <th width="200">Mobile</th>
+                        <td>@Model.MobileNumber</td>
+                    </tr>
+
+                    <tr>
+                        <th>Email</th>
+                        <td>@Model.Email</td>
+                    </tr>
+
+                    <tr>
+                        <th>Address</th>
+                        <td>@Model.Address</td>
+                    </tr>
+
+                </table>
+
+                <hr />
+
+                <h5 class="text-primary">
+                    Academic Information
+                </h5>
+
+                <table class="table table-borderless">
+
+                    <tr>
+                        <th width="200">Qualification</th>
+                        <td>@Model.Qualification</td>
+                    </tr>
+
+                    <tr>
+                        <th>Specialization</th>
+                        <td>@Model.Specialization</td>
+                    </tr>
+
+                    <tr>
+                        <th>Experience</th>
+                        <td>@Model.ExperienceYears Years</td>
+                    </tr>
+
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="card-footer text-center">
+
+        <a asp-action="Edit"
+           asp-route-id="@Model.EmployeeId"
+           class="btn btn-warning">
+
+            Edit Employee
+
+        </a>
+
+        <a asp-action="Index"
+           class="btn btn-secondary">
+
+            Back
+
+        </a>
+
+        <button onclick="window.print();"
+                class="btn btn-success">
+
+            Print Profile
+
+        </button>
+
+    </div>
+
+</div>

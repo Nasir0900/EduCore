@@ -1,0 +1,473 @@
+﻿@model EduCore.Models.Employee
+
+@{
+    ViewData["Title"] = "Edit Employee";
+}
+
+<h2>Edit Employee</h2>
+
+<hr />
+
+<div class="row">
+
+    <div class="col-lg-10">
+
+        <form asp-action="Edit">
+            <input type="hidden" asp-for="EmployeeId" />
+            <div asp-validation-summary="ModelOnly"
+                 class="text-danger"></div>
+
+            <div class="card mb-4">
+
+                <div class="card-header bg-primary text-white">
+
+                    <h5 class="mb-0">
+                        Personal Information
+                    </h5>
+
+                </div>
+
+                <div class="card-body">
+
+                    <div class="row">
+
+                        <div class="col-md-4">
+
+                            <label asp-for="EmployeeNumber"
+                                   class="form-label"></label>
+
+                            <input asp-for="EmployeeNumber"
+                                   class="form-control"
+                                   readonly />
+
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <label asp-for="FirstName"
+                                   class="form-label"></label>
+
+                            <input asp-for="FirstName"
+                                   class="form-control" />
+
+                            <span asp-validation-for="FirstName"
+                                  class="text-danger"></span>
+
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <label asp-for="LastName"
+                                   class="form-label"></label>
+
+                            <input asp-for="LastName"
+                                   class="form-control" />
+
+                            <span asp-validation-for="LastName"
+                                  class="text-danger"></span>
+
+                        </div>
+
+                    </div>
+
+                    <br />
+
+                    <div class="row">
+
+                        <div class="col-md-4">
+
+                            <label asp-for="FatherName"
+                                   class="form-label"></label>
+
+                            <input asp-for="FatherName"
+                                   class="form-control" />
+
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <label asp-for="CNIC"
+                                   class="form-label"></label>
+
+                            <input asp-for="CNIC"
+                                   class="form-control"
+                                   placeholder="xxxxx-xxxxxxx-x" />
+
+                            <span asp-validation-for="CNIC"
+                                  class="text-danger"></span>
+
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <label asp-for="Gender"
+                                   class="form-label"></label>
+
+                            <select asp-for="Gender"
+                                    class="form-select"
+                                    asp-items="Html.GetEnumSelectList<EduCore.Enums.Gender>()">
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                    <br />
+
+                    <div class="row">
+
+                        <div class="col-md-4">
+
+                            <label asp-for="DateOfBirth"
+                                   class="form-label"></label>
+
+                            <input asp-for="DateOfBirth"
+                                   type="date"
+                                   class="form-control" />
+
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <label asp-for="BloodGroup"
+                                   class="form-label"></label>
+
+                            <select asp-for="BloodGroup"
+                                    class="form-select"
+                                    asp-items="Html.GetEnumSelectList<EduCore.Enums.BloodGroup>()">
+                            </select>
+
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <label asp-for="MaritalStatus"
+                                   class="form-label"></label>
+
+                            <select asp-for="MaritalStatus"
+                                    class="form-select"
+                                    asp-items="Html.GetEnumSelectList<EduCore.Enums.MaritalStatus>()">
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- ========================================= -->
+            <!-- Employment Information -->
+            <!-- ========================================= -->
+
+            <div class="card mb-4">
+
+                <div class="card-header bg-success text-white">
+
+                    <h5 class="mb-0">
+                        Employment Information
+                    </h5>
+
+                </div>
+
+                <div class="card-body">
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+
+                            <label asp-for="FacultyId"
+                                   class="form-label"></label>
+
+                            <select asp-for="FacultyId"
+                                    id="FacultyId"
+                                    class="form-select"
+                                    asp-items="ViewBag.FacultyId">
+
+                                <option value="">-- Select Faculty --</option>
+
+                            </select>
+
+                            <span asp-validation-for="FacultyId"
+                                  class="text-danger"></span>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <label asp-for="DepartmentId"
+                                   class="form-label"></label>
+
+                            <select asp-for="DepartmentId"
+                                    id="DepartmentId"
+                                    class="form-select"
+                                    asp-items="ViewBag.DepartmentId">
+
+                                <option value="">-- Select Department --</option>
+
+                            </select>
+
+                            <span asp-validation-for="DepartmentId"
+                                  class="text-danger"></span>
+
+                        </div>
+
+                    </div>
+
+                    <br />
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+
+                            <label asp-for="DesignationId"
+                                   class="form-label"></label>
+
+                            <select asp-for="DesignationId"
+                                    class="form-select"
+                                    asp-items="ViewBag.DesignationId">
+
+                                <option value="">-- Select Designation --</option>
+
+                            </select>
+
+                            <span asp-validation-for="DesignationId"
+                                  class="text-danger"></span>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <label asp-for="EmploymentTypeId"
+                                   class="form-label"></label>
+
+                            <select asp-for="EmploymentTypeId"
+                                    class="form-select"
+                                    asp-items="ViewBag.EmploymentTypeId">
+
+                                <option value="">-- Select Employment Type --</option>
+
+                            </select>
+
+                            <span asp-validation-for="EmploymentTypeId"
+                                  class="text-danger"></span>
+
+                        </div>
+
+                    </div>
+
+                    <br />
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+
+                            <label asp-for="JoiningDate"
+                                   class="form-label"></label>
+
+                            <input asp-for="JoiningDate"
+                                   type="date"
+                                   class="form-control" />
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <label asp-for="EmploymentStatus"
+                                   class="form-label"></label>
+
+                            <select asp-for="EmploymentStatus"
+                                    class="form-select"
+                                    asp-items="Html.GetEnumSelectList<EduCore.Enums.EmploymentStatus>()">
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- ========================================= -->
+            <!-- Contact Information -->
+            <!-- ========================================= -->
+
+            <div class="card mb-4">
+
+                <div class="card-header bg-info text-white">
+
+                    <h5 class="mb-0">
+                        Contact Information
+                    </h5>
+
+                </div>
+
+                <div class="card-body">
+
+                    <div class="row">
+
+                        <div class="col-md-4">
+
+                            <label asp-for="MobileNumber"
+                                   class="form-label"></label>
+
+                            <input asp-for="MobileNumber"
+                                   class="form-control" />
+
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <label asp-for="Email"
+                                   class="form-label"></label>
+
+                            <input asp-for="Email"
+                                   class="form-control" />
+
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <label asp-for="Address"
+                                   class="form-label"></label>
+
+                            <input asp-for="Address"
+                                   class="form-control" />
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- ========================================= -->
+            <!-- Academic Information -->
+            <!-- ========================================= -->
+
+            <div class="card mb-4">
+
+                <div class="card-header bg-warning">
+
+                    <h5 class="mb-0">
+                        Academic Information
+                    </h5>
+
+                </div>
+
+                <div class="card-body">
+
+                    <div class="row">
+
+                        <div class="col-md-4">
+
+                            <label asp-for="Qualification"
+                                   class="form-label"></label>
+
+                            <input asp-for="Qualification"
+                                   class="form-control" />
+
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <label asp-for="Specialization"
+                                   class="form-label"></label>
+
+                            <input asp-for="Specialization"
+                                   class="form-control" />
+
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <label asp-for="ExperienceYears"
+                                   class="form-label"></label>
+
+                            <input asp-for="ExperienceYears"
+                                   class="form-control" />
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- ========================================= -->
+            <!-- Buttons -->
+            <!-- ========================================= -->
+
+            <div class="mb-4">
+
+                <button type="submit"
+                        class="btn btn-primary">
+
+                    Update Employee
+
+                </button>
+
+                <a asp-action="Index"
+                   class="btn btn-secondary">
+
+                    Cancel
+
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+@section Scripts
+{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+
+        document.getElementById("FacultyId")
+            .addEventListener("change", async function () {
+
+                let facultyId = this.value;
+
+                let department =
+                    document.getElementById("DepartmentId");
+
+                department.innerHTML =
+                    '<option value="">-- Select Department --</option>';
+
+                if (facultyId === "")
+                    return;
+
+                const response =
+                    await fetch(`/Employees/GetDepartments?facultyId=${facultyId}`);
+
+                const data =
+                    await response.json();
+
+                data.forEach(function (item) {
+
+                    let option =
+                        document.createElement("option");
+
+                    option.value =
+                        item.departmentId;
+
+                    option.text =
+                        item.departmentName;
+
+                    department.appendChild(option);
+
+                });
+
+            });
+
+    </script>
+}

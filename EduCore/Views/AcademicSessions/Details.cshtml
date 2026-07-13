@@ -1,81 +1,176 @@
 @model EduCore.Models.AcademicSession
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Academic Session Details";
 }
 
-<h1>Details</h1>
+<h2 class="mb-4">Academic Session Details</h2>
 
-<div>
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show">
+        @TempData["Success"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
 
-    <h4>Academic Session</h4>
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show">
+        @TempData["Error"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
 
-    <hr />
+<div class="card shadow-sm mb-4">
 
-    <dl class="row">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">Academic Session Information</h5>
+    </div>
 
-        <dt class="col-sm-3">
-            @Html.DisplayNameFor(model => model.SessionName)
-        </dt>
-        <dd class="col-sm-9">
-            @Html.DisplayFor(model => model.SessionName)
-        </dd>
+    <div class="card-body">
 
-        <dt class="col-sm-3">
-            @Html.DisplayNameFor(model => model.StartYear)
-        </dt>
-        <dd class="col-sm-9">
-            @Html.DisplayFor(model => model.StartYear)
-        </dd>
+        <table class="table table-borderless">
 
-        <dt class="col-sm-3">
-            @Html.DisplayNameFor(model => model.EndYear)
-        </dt>
-        <dd class="col-sm-9">
-            @Html.DisplayFor(model => model.EndYear)
-        </dd>
+            <tr>
+                <th width="220">Session Name</th>
+                <td>@Model.SessionName</td>
+            </tr>
 
-        <dt class="col-sm-3">
-            Academic Program
-        </dt>
-        <dd class="col-sm-9">
-            @Model.AcademicProgram?.ProgramName
-        </dd>
+            <tr>
+                <th>Academic Program</th>
+                <td>@Model.AcademicProgram?.ProgramName</td>
+            </tr>
 
-        <dt class="col-sm-3">
-            Admissions
-        </dt>
-        <dd class="col-sm-9">
-            @(Model.IsAdmissionOpen ? "Open" : "Closed")
-        </dd>
+            <tr>
+                <th>Duration</th>
+                <td>@Model.StartYear - @Model.EndYear</td>
+            </tr>
 
-        <dt class="col-sm-3">
-            Status
-        </dt>
-        <dd class="col-sm-9">
-            @(Model.IsActive ? "Active" : "Inactive")
-        </dd>
+            <tr>
+                <th>Admissions</th>
+                <td>
+                    @if (Model.IsAdmissionOpen)
+                    {
+                        <span class="badge bg-success">Open</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-danger">Closed</span>
+                    }
+                </td>
+            </tr>
 
-        <dt class="col-sm-3">
-            @Html.DisplayNameFor(model => model.CreatedDate)
-        </dt>
-        <dd class="col-sm-9">
-            @Html.DisplayFor(model => model.CreatedDate)
-        </dd>
+            <tr>
+                <th>Status</th>
+                <td>
+                    @if (Model.IsActive)
+                    {
+                        <span class="badge bg-success">Active</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">Inactive</span>
+                    }
+                </td>
+            </tr>
 
-    </dl>
+            <tr>
+                <th>Created</th>
+                <td>@Model.CreatedDate.ToShortDateString()</td>
+            </tr>
+
+        </table>
+
+    </div>
 
 </div>
 
-<div>
+<div class="card shadow-sm mb-4">
+
+    <div class="card-header bg-dark text-white">
+        <h5 class="mb-0">Academic Structure</h5>
+    </div>
+
+    <div class="card-body">
+
+        @if (Model.Parts != null && Model.Parts.Any())
+        {
+            foreach (var part in Model.Parts.OrderBy(p => p.PartNumber))
+            {
+                <div class="border rounded p-3 mb-3">
+
+                    <h5 class="text-primary">
+                        📁 @part.PartName
+                    </h5>
+
+                    @if (part.Semesters != null && part.Semesters.Any())
+                    {
+                        <ul class="list-group">
+
+                            @foreach (var semester in part.Semesters.OrderBy(s => s.SemesterNumber))
+                            {
+                                <li class="list-group-item">
+                                    📘 @semester.SemesterName
+                                </li>
+                            }
+
+                        </ul>
+                    }
+                    else
+                    {
+                        <p class="text-muted mb-0">
+                            No semesters found.
+                        </p>
+                    }
+
+                </div>
+            }
+        }
+        else
+        {
+            <div class="alert alert-warning mb-0">
+                Academic Structure has not been generated yet.
+            </div>
+        }
+
+    </div>
+
+</div>
+
+<div class="mt-4">
+
+    @if (!(bool)ViewBag.StructureGenerated)
+    {
+        <form asp-action="GenerateStructure"
+              asp-route-id="@Model.AcademicSessionId"
+              method="post"
+              style="display:inline;">
+
+            @Html.AntiForgeryToken()
+
+            <button type="submit" class="btn btn-success">
+                Generate Academic Structure
+            </button>
+
+        </form>
+    }
+    else
+    {
+        <button class="btn btn-success" disabled>
+            ✔ Academic Structure Already Generated
+        </button>
+    }
+
     <a asp-action="Edit"
-       asp-route-id="@Model?.AcademicSessionId"
-       class="btn btn-primary">
+       asp-route-id="@Model.AcademicSessionId"
+       class="btn btn-warning">
         Edit
     </a>
 
     <a asp-action="Index"
        class="btn btn-secondary">
-        Back to List
+        Back
     </a>
+
 </div>

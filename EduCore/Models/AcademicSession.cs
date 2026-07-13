@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EduCore.Models
@@ -8,7 +9,7 @@ namespace EduCore.Models
         [Key]
         public int AcademicSessionId { get; set; }
 
-        [Required]
+        [ValidateNever]
         [Display(Name = "Session Name")]
         [StringLength(20)]
         public string SessionName { get; set; } = string.Empty;
@@ -17,7 +18,7 @@ namespace EduCore.Models
         [Display(Name = "Start Year")]
         public int StartYear { get; set; }
 
-        [Required]
+        [ValidateNever]
         [Display(Name = "End Year")]
         public int EndYear { get; set; }
 
@@ -25,7 +26,7 @@ namespace EduCore.Models
         [Display(Name = "Academic Program")]
         public int AcademicProgramId { get; set; }
 
-        [ForeignKey("AcademicProgramId")]
+        [ForeignKey(nameof(AcademicProgramId))]
         public AcademicProgram? AcademicProgram { get; set; }
 
         [Display(Name = "Admissions Open")]
@@ -36,6 +37,6 @@ namespace EduCore.Models
 
         public DateTime CreatedDate { get; set; } = DateTime.Now;
 
-      //  public ICollection<Part>? Parts { get; set; }
+        public ICollection<Part> Parts { get; set; } = new List<Part>();
     }
 }

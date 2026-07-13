@@ -4,30 +4,24 @@
     ViewData["Title"] = "Departments";
 }
 
-<h1>Departments</h1>
+<h2>Departments</h2>
 
 <p>
-    <a asp-action="Create" class="btn btn-primary">Create New Department</a>
+    <a asp-action="Create" class="btn btn-primary">
+        Create New Department
+    </a>
 </p>
 
-<table class="table table-bordered table-striped">
-    <thead>
+<table class="table table-bordered table-hover">
+
+    <thead class="table-dark">
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.DepartmentName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                Faculty
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedDate)
-            </th>
-            <th width="180">
-                Actions
-            </th>
+            <th>Department</th>
+            <th>Code</th>
+            <th>Faculty</th>
+            <th>Description</th>
+            <th>Created</th>
+            <th width="190">Actions</th>
         </tr>
     </thead>
 
@@ -38,11 +32,13 @@
             <tr>
 
                 <td>
-                    @Html.DisplayFor(modelItem => item.DepartmentName)
+                    @item.DepartmentName
                 </td>
 
                 <td>
-                    @Html.DisplayFor(modelItem => item.Description)
+                    <span class="badge bg-secondary">
+                        @item.DepartmentCode
+                    </span>
                 </td>
 
                 <td>
@@ -50,13 +46,33 @@
                 </td>
 
                 <td>
-                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                    @item.Description
                 </td>
 
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.DepartmentId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.DepartmentId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.DepartmentId">Delete</a>
+                    @item.CreatedDate.ToString("dd MMM yyyy")
+                </td>
+
+                <td>
+
+                    <a asp-action="Edit"
+                       asp-route-id="@item.DepartmentId"
+                       class="btn btn-sm btn-warning">
+                        Edit
+                    </a>
+
+                    <a asp-action="Details"
+                       asp-route-id="@item.DepartmentId"
+                       class="btn btn-sm btn-info text-white">
+                        Details
+                    </a>
+
+                    <a asp-action="Delete"
+                       asp-route-id="@item.DepartmentId"
+                       class="btn btn-sm btn-danger">
+                        Delete
+                    </a>
+
                 </td>
 
             </tr>

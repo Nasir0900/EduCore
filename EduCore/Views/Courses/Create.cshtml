@@ -1,0 +1,436 @@
+﻿@model EduCore.Models.Course
+
+@{
+    ViewData["Title"] = "Create Course";
+}
+
+<h2>Create Course</h2>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-8">
+
+        <form asp-action="Create">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="mb-3">
+                <label class="form-label">
+                    Faculty
+                </label>
+
+                <select id="FacultyId"
+                        class="form-select"
+                        asp-items="ViewBag.FacultyId">
+
+                    <option value="">-- Select Faculty --</option>
+
+                </select>
+
+            </div>
+
+            <!-- Department -->
+            <div class="mb-3">
+                <label asp-for="DepartmentId" class="form-label"></label>
+
+                <select asp-for="DepartmentId"
+                        id="DepartmentId"
+                        class="form-select"
+                        asp-items="ViewBag.DepartmentId">
+
+                    <option value="">-- Select Department --</option>
+
+                </select>
+
+                <span asp-validation-for="DepartmentId" class="text-danger"></span>
+            </div>
+          
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Academic Program
+                </label>
+
+                <select id="AcademicProgramId"
+                        class="form-select">
+
+                    <option value="">
+                        -- Select Academic Program --
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Academic Session
+                </label>
+
+                <select id="AcademicSessionId"
+                        class="form-select">
+
+                    <option value="">
+                        -- Select Academic Session --
+                    </option>
+
+                </select>
+
+            </div>
+            <!-- Semester -->
+            <div class="mb-3">
+                <label asp-for="SemesterId" class="form-label"></label>
+
+                <select asp-for="SemesterId"
+                        id="SemesterId"
+                        class="form-select"
+                        asp-items="ViewBag.SemesterId">
+
+                    <option value="">-- Select Semester --</option>
+
+                </select>
+
+                <span asp-validation-for="SemesterId" class="text-danger"></span>
+            </div>
+
+            <!-- Course Code -->
+            <div class="mb-3">
+                <label asp-for="CourseCode" class="form-label"></label>
+
+                <input asp-for="CourseCode"
+                       id="CourseCode"
+                       class="form-control"
+                       readonly />
+
+                <small class="text-muted">
+                    Course Code is generated automatically.
+                </small>
+
+                <span asp-validation-for="CourseCode" class="text-danger"></span>
+            </div>
+
+            <!-- Course Title -->
+            <div class="mb-3">
+                <label asp-for="CourseTitle" class="form-label"></label>
+
+                <input asp-for="CourseTitle"
+                       class="form-control"
+                       placeholder="Enter Course Title" />
+
+                <span asp-validation-for="CourseTitle" class="text-danger"></span>
+            </div>
+
+            <!-- Description -->
+            <div class="mb-3">
+                <label asp-for="Description" class="form-label"></label>
+
+                <textarea asp-for="Description"
+                          class="form-control"
+                          rows="3"></textarea>
+
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <!-- Course Type -->
+            <div class="mb-3">
+                <label asp-for="CourseType" class="form-label"></label>
+
+                <select asp-for="CourseType"
+                        class="form-select"
+                        asp-items="Html.GetEnumSelectList<EduCore.Enums.CourseType>()">
+                </select>
+
+                <span asp-validation-for="CourseType" class="text-danger"></span>
+            </div>
+
+            <!-- Course Category -->
+            <div class="mb-3">
+                <label asp-for="CourseCategory" class="form-label"></label>
+
+                <select asp-for="CourseCategory"
+                        class="form-select"
+                        asp-items="Html.GetEnumSelectList<EduCore.Enums.CourseCategory>()">
+                </select>
+
+                <span asp-validation-for="CourseCategory" class="text-danger"></span>
+            </div>
+
+            <!-- Credit Structure -->
+            <div class="row">
+
+                <div class="col-md-4">
+                    <label asp-for="CreditHours" class="form-label"></label>
+                    <input asp-for="CreditHours" class="form-control" />
+                    <span asp-validation-for="CreditHours" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-4">
+                    <label asp-for="TheoryHours" class="form-label"></label>
+                    <input asp-for="TheoryHours" class="form-control" />
+                    <span asp-validation-for="TheoryHours" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-4">
+                    <label asp-for="PracticalHours" class="form-label"></label>
+                    <input asp-for="PracticalHours" class="form-control" />
+                    <span asp-validation-for="PracticalHours" class="text-danger"></span>
+                </div>
+
+            </div>
+
+            <br />
+
+            <!-- Prerequisite -->
+            <div class="mb-3">
+                <label asp-for="PrerequisiteCourseId" class="form-label"></label>
+
+                <select asp-for="PrerequisiteCourseId"
+                        class="form-select"
+                        asp-items="ViewBag.PrerequisiteCourseId">
+
+                    <option value="">None</option>
+
+                </select>
+
+                <span asp-validation-for="PrerequisiteCourseId" class="text-danger"></span>
+            </div>
+
+            <!-- Marks -->
+            <div class="row">
+
+                <div class="col-md-6">
+                    <label asp-for="TotalMarks" class="form-label"></label>
+                    <input asp-for="TotalMarks" class="form-control" />
+                    <span asp-validation-for="TotalMarks" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="PassingMarks" class="form-label"></label>
+                    <input asp-for="PassingMarks" class="form-control" />
+                    <span asp-validation-for="PassingMarks" class="text-danger"></span>
+                </div>
+
+            </div>
+
+            <br />
+
+            <div class="form-check mb-3">
+                <input asp-for="IsCompulsory" class="form-check-input" />
+                <label asp-for="IsCompulsory" class="form-check-label"></label>
+            </div>
+
+            <div class="form-check mb-4">
+                <input asp-for="IsActive" class="form-check-input" />
+                <label asp-for="IsActive" class="form-check-label"></label>
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                Create Course
+            </button>
+
+            <a asp-action="Index" class="btn btn-secondary">
+                Cancel
+            </a>
+
+        </form>
+
+    </div>
+</div>
+
+<script>
+
+    // ==========================
+    // Generate Course Code
+    // ==========================
+    async function generateCourseCode() {
+
+        let departmentId = document.getElementById("DepartmentId").value;
+        let semesterId = document.getElementById("SemesterId").value;
+
+        if (departmentId === "" || semesterId === "") {
+            document.getElementById("CourseCode").value = "";
+            return;
+        }
+
+        const response = await fetch(`/Courses/GenerateCourseCode?departmentId=${departmentId}&semesterId=${semesterId}`);
+
+        const data = await response.json();
+
+        if (data.success) {
+            document.getElementById("CourseCode").value = data.courseCode;
+        }
+    }
+
+    // ==========================
+    // Faculty -> Department
+    // ==========================
+    document.getElementById("FacultyId")
+        .addEventListener("change", async function () {
+
+            let facultyId = this.value;
+
+            let department = document.getElementById("DepartmentId");
+
+            department.innerHTML = '<option value="">-- Select Department --</option>';
+
+            // Clear dependent dropdowns
+            document.getElementById("AcademicProgramId").innerHTML =
+                '<option value="">-- Select Academic Program --</option>';
+
+            document.getElementById("AcademicSessionId").innerHTML =
+                '<option value="">-- Select Academic Session --</option>';
+
+            document.getElementById("SemesterId").innerHTML =
+                '<option value="">-- Select Semester --</option>';
+
+            document.getElementById("CourseCode").value = "";
+
+            if (facultyId === "")
+                return;
+
+            const response = await fetch(`/Courses/GetDepartments?facultyId=${facultyId}`);
+
+            const data = await response.json();
+
+            data.forEach(function (item) {
+
+                let option = document.createElement("option");
+
+                option.value = item.departmentId;
+                option.text = item.departmentName;
+
+                department.appendChild(option);
+
+            });
+
+        });
+
+    // ==========================
+    // Department -> Program
+    // ==========================
+    document.getElementById("DepartmentId")
+        .addEventListener("change", async function () {
+
+            generateCourseCode();
+
+            let departmentId = this.value;
+
+            let program = document.getElementById("AcademicProgramId");
+
+            program.innerHTML =
+                '<option value="">-- Select Academic Program --</option>';
+
+            document.getElementById("AcademicSessionId").innerHTML =
+                '<option value="">-- Select Academic Session --</option>';
+
+            document.getElementById("SemesterId").innerHTML =
+                '<option value="">-- Select Semester --</option>';
+
+            if (departmentId === "")
+                return;
+
+            const response =
+                await fetch(`/Courses/GetPrograms?departmentId=${departmentId}`);
+
+            const data = await response.json();
+
+            data.forEach(function (item) {
+
+                let option = document.createElement("option");
+
+                option.value = item.academicProgramId;
+                option.text = item.programName;
+
+                program.appendChild(option);
+
+            });
+
+        });
+
+    // ==========================
+    // Program -> Academic Session
+    // ==========================
+    document.getElementById("AcademicProgramId")
+        .addEventListener("change", async function () {
+
+            let programId = this.value;
+
+            let session = document.getElementById("AcademicSessionId");
+
+            session.innerHTML =
+                '<option value="">-- Select Academic Session --</option>';
+
+            document.getElementById("SemesterId").innerHTML =
+                '<option value="">-- Select Semester --</option>';
+
+            if (programId === "")
+                return;
+
+            const response =
+                await fetch(`/Courses/GetAcademicSessions?academicProgramId=${programId}`);
+
+            const data = await response.json();
+
+            data.forEach(function (item) {
+
+                let option = document.createElement("option");
+
+                option.value = item.academicSessionId;
+                option.text = item.sessionName;
+
+                session.appendChild(option);
+
+            });
+
+        });
+
+    // ==========================
+    // Academic Session -> Semester
+    // ==========================
+    document.getElementById("AcademicSessionId")
+        .addEventListener("change", async function () {
+
+            let sessionId = this.value;
+
+            let semester = document.getElementById("SemesterId");
+
+            semester.innerHTML =
+                '<option value="">-- Select Semester --</option>';
+
+            if (sessionId === "")
+                return;
+
+            const response =
+                await fetch(`/Courses/GetSemesters?academicSessionId=${sessionId}`);
+
+            const data = await response.json();
+
+            data.forEach(function (item) {
+
+                let option = document.createElement("option");
+
+                option.value = item.semesterId;
+                option.text = item.semesterName;
+
+                semester.appendChild(option);
+
+            });
+
+        });
+
+    // ==========================
+    // Semester Changed
+    // ==========================
+    document.getElementById("SemesterId")
+        .addEventListener("change", generateCourseCode);
+
+    // ==========================
+    // Page Load
+    // ==========================
+    window.onload = function () {
+        generateCourseCode();
+    };
+
+</script>

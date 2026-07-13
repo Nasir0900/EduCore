@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using EduCore.Enums;
+using EduCore.Interfaces;
+using EduCore.Services;
 
 namespace EduCore.Models
 {

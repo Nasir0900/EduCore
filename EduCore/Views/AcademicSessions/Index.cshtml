@@ -4,114 +4,138 @@
     ViewData["Title"] = "Academic Sessions";
 }
 
-<h1>Academic Sessions</h1>
+<h2 class="mb-4">Academic Sessions</h2>
 
-<p>
+<div class="mb-3">
     <a asp-action="Create" class="btn btn-primary">
-        Create New Academic Session
+        <i class="bi bi-plus-circle"></i>
+        Create Academic Session
     </a>
-</p>
+</div>
 
-<table class="table table-bordered table-hover">
+<div class="card shadow-sm">
 
-    <thead class="table-dark">
-        <tr>
-            <th>Session</th>
-            <th>Start Year</th>
-            <th>End Year</th>
-            <th>Academic Program</th>
-            <th>Admissions</th>
-            <th>Status</th>
-            <th>Created</th>
-            <th width="180">Actions</th>
-        </tr>
-    </thead>
+    <div class="card-body p-0">
 
-    <tbody>
+        <table class="table table-striped table-hover align-middle mb-0">
 
-        @foreach (var item in Model)
-        {
-            <tr>
+            <thead class="table-dark">
 
-                <td>
-                    @item.SessionName
-                </td>
+                <tr>
+                    <th>Session</th>
+                    <th>Program</th>
+                    <th>Duration</th>
+                    <th>Admissions</th>
+                    <th>Status</th>
+                    <th>Structure</th>
+                    <th>Created</th>
+                    <th width="220">Actions</th>
+                </tr>
 
-                <td>
-                    @item.StartYear
-                </td>
+            </thead>
 
-                <td>
-                    @item.EndYear
-                </td>
+            <tbody>
 
-                <td>
-                    @item.AcademicProgram?.ProgramName
-                </td>
+                @foreach (var item in Model)
+                {
+                    <tr>
 
-                <td>
+                        <td>
+                            <strong>@item.SessionName</strong>
+                        </td>
 
-                    @if (item.IsAdmissionOpen)
-                    {
-                        <span class="badge bg-success">
-                            Open
-                        </span>
-                    }
-                    else
-                    {
-                        <span class="badge bg-danger">
-                            Closed
-                        </span>
-                    }
+                        <td>
+                            @item.AcademicProgram?.ProgramName
+                        </td>
 
-                </td>
+                        <td>
+                            @item.StartYear - @item.EndYear
+                        </td>
 
-                <td>
+                        <td>
+                            @if (item.IsAdmissionOpen)
+                            {
+                                <span class="badge bg-success">
+                                    Open
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger">
+                                    Closed
+                                </span>
+                            }
+                        </td>
 
-                    @if (item.IsActive)
-                    {
-                        <span class="badge bg-primary">
-                            Active
-                        </span>
-                    }
-                    else
-                    {
-                        <span class="badge bg-secondary">
-                            Inactive
-                        </span>
-                    }
+                        <td>
+                            @if (item.IsActive)
+                            {
+                                <span class="badge bg-primary">
+                                    Active
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary">
+                                    Inactive
+                                </span>
+                            }
+                        </td>
 
-                </td>
+                        <td>
 
-                <td>
-                    @item.CreatedDate.ToShortDateString()
-                </td>
+                            @if (item.Parts != null && item.Parts.Any())
+                            {
+                                <span class="badge bg-success">
+                                    Generated
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-warning text-dark">
+                                    Pending
+                                </span>
+                            }
 
-                <td>
+                        </td>
 
-                    <a asp-action="Edit"
-                       asp-route-id="@item.AcademicSessionId"
-                       class="btn btn-sm btn-warning">
-                        Edit
-                    </a>
+                        <td>
+                            @item.CreatedDate.ToString("dd MMM yyyy")
+                        </td>
 
-                    <a asp-action="Details"
-                       asp-route-id="@item.AcademicSessionId"
-                       class="btn btn-sm btn-info text-white">
-                        Details
-                    </a>
+                        <td>
 
-                    <a asp-action="Delete"
-                       asp-route-id="@item.AcademicSessionId"
-                       class="btn btn-sm btn-danger">
-                        Delete
-                    </a>
+                            <div class="btn-group" role="group">
 
-                </td>
+                                <a asp-action="Details"
+                                   asp-route-id="@item.AcademicSessionId"
+                                   class="btn btn-sm btn-info text-white">
+                                    Details
+                                </a>
 
-            </tr>
-        }
+                                <a asp-action="Edit"
+                                   asp-route-id="@item.AcademicSessionId"
+                                   class="btn btn-sm btn-warning">
+                                    Edit
+                                </a>
 
-    </tbody>
+                                <a asp-action="Delete"
+                                   asp-route-id="@item.AcademicSessionId"
+                                   class="btn btn-sm btn-danger">
+                                    Delete
+                                </a>
 
-</table>
+                            </div>
+
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>

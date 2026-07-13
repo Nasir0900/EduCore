@@ -1,0 +1,184 @@
+﻿@model EduCore.Models.Course
+
+@{
+    ViewData["Title"] = "Edit Course";
+}
+
+<h2>Edit Course</h2>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-8">
+
+        <form asp-action="Edit">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input type="hidden" asp-for="CourseId" />
+
+            <!-- Department -->
+            <div class="mb-3">
+                <label asp-for="DepartmentId" class="form-label"></label>
+
+                <select asp-for="DepartmentId"
+                        class="form-select"
+                        asp-items="ViewBag.DepartmentId">
+                </select>
+
+                <span asp-validation-for="DepartmentId" class="text-danger"></span>
+            </div>
+
+            <!-- Semester -->
+            <div class="mb-3">
+                <label asp-for="SemesterId" class="form-label"></label>
+
+                <select asp-for="SemesterId"
+                        class="form-select"
+                        asp-items="ViewBag.SemesterId">
+                </select>
+
+                <span asp-validation-for="SemesterId" class="text-danger"></span>
+            </div>
+
+            <!-- Course Code -->
+            <div class="mb-3">
+                <label asp-for="CourseCode" class="form-label"></label>
+
+                <input asp-for="CourseCode"
+                       class="form-control"
+                       readonly />
+
+                <span asp-validation-for="CourseCode" class="text-danger"></span>
+            </div>
+
+            <!-- Course Title -->
+            <div class="mb-3">
+                <label asp-for="CourseTitle" class="form-label"></label>
+
+                <input asp-for="CourseTitle" class="form-control" />
+
+                <span asp-validation-for="CourseTitle" class="text-danger"></span>
+            </div>
+
+            <!-- Description -->
+            <div class="mb-3">
+                <label asp-for="Description"></label>
+
+                <textarea asp-for="Description"
+                          class="form-control"
+                          rows="3"></textarea>
+            </div>
+
+            <!-- Course Type -->
+            <div class="mb-3">
+                <label asp-for="CourseType"></label>
+
+                <select asp-for="CourseType"
+                        class="form-select"
+                        asp-items="Html.GetEnumSelectList<EduCore.Enums.CourseType>()">
+                </select>
+            </div>
+
+            <!-- Course Category -->
+            <div class="mb-3">
+                <label asp-for="CourseCategory"></label>
+
+                <select asp-for="CourseCategory"
+                        class="form-select"
+                        asp-items="Html.GetEnumSelectList<EduCore.Enums.CourseCategory>()">
+                </select>
+            </div>
+
+            <!-- Credit Hours -->
+            <div class="row">
+
+                <div class="col-md-4">
+                    <label asp-for="CreditHours"></label>
+                    <input asp-for="CreditHours" class="form-control" />
+                </div>
+
+                <div class="col-md-4">
+                    <label asp-for="TheoryHours"></label>
+                    <input asp-for="TheoryHours" class="form-control" />
+                </div>
+
+                <div class="col-md-4">
+                    <label asp-for="PracticalHours"></label>
+                    <input asp-for="PracticalHours" class="form-control" />
+                </div>
+
+            </div>
+
+            <br />
+
+            <!-- Prerequisite -->
+            <div class="mb-3">
+                <label asp-for="PrerequisiteCourseId"></label>
+
+                <select asp-for="PrerequisiteCourseId"
+                        class="form-select"
+                        asp-items="ViewBag.PrerequisiteCourseId">
+
+                    <option value="">None</option>
+
+                </select>
+            </div>
+
+            <!-- Marks -->
+            <div class="row">
+
+                <div class="col-md-6">
+                    <label asp-for="TotalMarks"></label>
+                    <input asp-for="TotalMarks" class="form-control" />
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="PassingMarks"></label>
+                    <input asp-for="PassingMarks" class="form-control" />
+                </div>
+
+            </div>
+
+            <br />
+
+            <div class="mb-3">
+                <label asp-for="DisplayOrder"></label>
+                <input asp-for="DisplayOrder" class="form-control" />
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="MaximumEnrollment"></label>
+                <input asp-for="MaximumEnrollment" class="form-control" />
+            </div>
+
+            <div class="form-check mb-3">
+                <input asp-for="IsCompulsory" class="form-check-input" />
+                <label asp-for="IsCompulsory" class="form-check-label"></label>
+            </div>
+
+            <div class="form-check mb-4">
+                <input asp-for="IsActive" class="form-check-input" />
+                <label asp-for="IsActive" class="form-check-label"></label>
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                Save Changes
+            </button>
+
+            <a asp-action="Index"
+               class="btn btn-secondary">
+                Cancel
+            </a>
+
+        </form>
+
+    </div>
+</div>
+
+@section Scripts
+{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

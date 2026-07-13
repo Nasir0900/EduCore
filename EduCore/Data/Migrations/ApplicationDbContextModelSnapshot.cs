@@ -107,6 +107,84 @@ namespace EduCore.Data.Migrations
                     b.ToTable("AcademicSessions");
                 });
 
+            modelBuilder.Entity("EduCore.Models.Course", b =>
+                {
+                    b.Property<int>("CourseId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CourseId"));
+
+                    b.Property<int>("CourseCategory")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CourseCode")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("CourseTitle")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("CourseType")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("CreditHours")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DepartmentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<int>("DisplayOrder")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsCompulsory")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("MaximumEnrollment")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PassingMarks")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PracticalHours")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PrerequisiteCourseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SemesterId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TheoryHours")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalMarks")
+                        .HasColumnType("int");
+
+                    b.HasKey("CourseId");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.HasIndex("PrerequisiteCourseId");
+
+                    b.HasIndex("SemesterId");
+
+                    b.ToTable("Courses");
+                });
+
             modelBuilder.Entity("EduCore.Models.Department", b =>
                 {
                     b.Property<int>("DepartmentId")
@@ -117,6 +195,11 @@ namespace EduCore.Data.Migrations
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("DepartmentCode")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("DepartmentName")
                         .IsRequired()
@@ -132,9 +215,186 @@ namespace EduCore.Data.Migrations
 
                     b.HasKey("DepartmentId");
 
+                    b.HasIndex("DepartmentCode")
+                        .IsUnique();
+
                     b.HasIndex("FacultyId");
 
                     b.ToTable("Departments");
+                });
+
+            modelBuilder.Entity("EduCore.Models.Designation", b =>
+                {
+                    b.Property<int>("DesignationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DesignationId"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DesignationName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("DisplayOrder")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsTeaching")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ShortName")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.HasKey("DesignationId");
+
+                    b.ToTable("Designations");
+                });
+
+            modelBuilder.Entity("EduCore.Models.Employee", b =>
+                {
+                    b.Property<int>("EmployeeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EmployeeId"));
+
+                    b.Property<string>("Address")
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<int>("BloodGroup")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CNIC")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateOfBirth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("DepartmentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DesignationId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EmployeeNumber")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<int>("EmploymentStatus")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EmploymentTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ExperienceYears")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FacultyId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FatherName")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("JoiningDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("MaritalStatus")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MobileNumber")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("PhotoPath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Qualification")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("SignaturePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Specialization")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.HasKey("EmployeeId");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.HasIndex("DesignationId");
+
+                    b.HasIndex("EmploymentTypeId");
+
+                    b.HasIndex("FacultyId");
+
+                    b.ToTable("Employees");
+                });
+
+            modelBuilder.Entity("EduCore.Models.EmploymentType", b =>
+                {
+                    b.Property<int>("EmploymentTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EmploymentTypeId"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<int>("DisplayOrder")
+                        .HasColumnType("int");
+
+                    b.Property<string>("EmploymentTypeName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.HasKey("EmploymentTypeId");
+
+                    b.ToTable("EmploymentTypes");
                 });
 
             modelBuilder.Entity("EduCore.Models.Faculty", b =>
@@ -160,6 +420,34 @@ namespace EduCore.Data.Migrations
                     b.HasKey("FacultyId");
 
                     b.ToTable("Faculties");
+                });
+
+            modelBuilder.Entity("EduCore.Models.Semester", b =>
+                {
+                    b.Property<int>("SemesterId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SemesterId"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PartId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SemesterName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SemesterNumber")
+                        .HasColumnType("int");
+
+                    b.HasKey("SemesterId");
+
+                    b.HasIndex("PartId");
+
+                    b.ToTable("Semesters");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -364,6 +652,34 @@ namespace EduCore.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Part", b =>
+                {
+                    b.Property<int>("PartId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PartId"));
+
+                    b.Property<int>("AcademicSessionId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PartName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PartNumber")
+                        .HasColumnType("int");
+
+                    b.HasKey("PartId");
+
+                    b.HasIndex("AcademicSessionId");
+
+                    b.ToTable("Parts");
+                });
+
             modelBuilder.Entity("EduCore.Models.AcademicProgram", b =>
                 {
                     b.HasOne("EduCore.Models.Department", "Department")
@@ -386,6 +702,32 @@ namespace EduCore.Data.Migrations
                     b.Navigation("AcademicProgram");
                 });
 
+            modelBuilder.Entity("EduCore.Models.Course", b =>
+                {
+                    b.HasOne("EduCore.Models.Department", "Department")
+                        .WithMany("Courses")
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("EduCore.Models.Course", "PrerequisiteCourse")
+                        .WithMany("DependentCourses")
+                        .HasForeignKey("PrerequisiteCourseId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("EduCore.Models.Semester", "Semester")
+                        .WithMany("Courses")
+                        .HasForeignKey("SemesterId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Department");
+
+                    b.Navigation("PrerequisiteCourse");
+
+                    b.Navigation("Semester");
+                });
+
             modelBuilder.Entity("EduCore.Models.Department", b =>
                 {
                     b.HasOne("EduCore.Models.Faculty", "Faculty")
@@ -395,6 +737,52 @@ namespace EduCore.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Faculty");
+                });
+
+            modelBuilder.Entity("EduCore.Models.Employee", b =>
+                {
+                    b.HasOne("EduCore.Models.Department", "Department")
+                        .WithMany()
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("EduCore.Models.Designation", "Designation")
+                        .WithMany()
+                        .HasForeignKey("DesignationId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("EduCore.Models.EmploymentType", "EmploymentType")
+                        .WithMany()
+                        .HasForeignKey("EmploymentTypeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("EduCore.Models.Faculty", "Faculty")
+                        .WithMany()
+                        .HasForeignKey("FacultyId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Department");
+
+                    b.Navigation("Designation");
+
+                    b.Navigation("EmploymentType");
+
+                    b.Navigation("Faculty");
+                });
+
+            modelBuilder.Entity("EduCore.Models.Semester", b =>
+                {
+                    b.HasOne("Part", "Part")
+                        .WithMany("Semesters")
+                        .HasForeignKey("PartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Part");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -448,19 +836,52 @@ namespace EduCore.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Part", b =>
+                {
+                    b.HasOne("EduCore.Models.AcademicSession", "AcademicSession")
+                        .WithMany("Parts")
+                        .HasForeignKey("AcademicSessionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AcademicSession");
+                });
+
             modelBuilder.Entity("EduCore.Models.AcademicProgram", b =>
                 {
                     b.Navigation("AcademicSessions");
                 });
 
+            modelBuilder.Entity("EduCore.Models.AcademicSession", b =>
+                {
+                    b.Navigation("Parts");
+                });
+
+            modelBuilder.Entity("EduCore.Models.Course", b =>
+                {
+                    b.Navigation("DependentCourses");
+                });
+
             modelBuilder.Entity("EduCore.Models.Department", b =>
                 {
                     b.Navigation("AcademicPrograms");
+
+                    b.Navigation("Courses");
                 });
 
             modelBuilder.Entity("EduCore.Models.Faculty", b =>
                 {
                     b.Navigation("Departments");
+                });
+
+            modelBuilder.Entity("EduCore.Models.Semester", b =>
+                {
+                    b.Navigation("Courses");
+                });
+
+            modelBuilder.Entity("Part", b =>
+                {
+                    b.Navigation("Semesters");
                 });
 #pragma warning restore 612, 618
         }

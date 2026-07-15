@@ -1,0 +1,104 @@
+@model EduCore.Models.LeaveType
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>LeaveType</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="LeaveTypeId" />
+            <div class="form-group">
+                <label asp-for="LeaveTypeName" class="control-label"></label>
+                <input asp-for="LeaveTypeName" class="form-control" />
+                <span asp-validation-for="LeaveTypeName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LeaveCode" class="control-label"></label>
+                <input asp-for="LeaveCode" class="form-control" />
+                <span asp-validation-for="LeaveCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MaximumDays" class="control-label"></label>
+                <input asp-for="MaximumDays" class="form-control" />
+                <span asp-validation-for="MaximumDays" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RequiresApproval" class="control-label"></label>
+                <input asp-for="RequiresApproval" class="form-check-input" />
+                <span asp-validation-for="RequiresApproval" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RequiresDocuments" class="control-label"></label>
+                <input asp-for="RequiresDocuments" class="form-check-input" />
+                <span asp-validation-for="RequiresDocuments" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AllowCarryForward" class="control-label"></label>
+                <input asp-for="AllowCarryForward" class="form-check-input" />
+                <span asp-validation-for="AllowCarryForward" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AllowBackDateApplication" class="control-label"></label>
+                <input asp-for="AllowBackDateApplication" class="form-check-input" />
+                <span asp-validation-for="AllowBackDateApplication" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AvailableAfterMonths" class="control-label"></label>
+                <input asp-for="AvailableAfterMonths" class="form-control" />
+                <span asp-validation-for="AvailableAfterMonths" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IsYearlyLimit" class="control-label"></label>
+                <input asp-for="IsYearlyLimit" class="form-check-input" />
+                <span asp-validation-for="IsYearlyLimit" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IsPaidLeave" class="control-label"></label>
+                <input asp-for="IsPaidLeave" class="form-check-input" />
+                <span asp-validation-for="IsPaidLeave" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DisplayOrder" class="control-label"></label>
+                <input asp-for="DisplayOrder" class="form-control" />
+                <span asp-validation-for="DisplayOrder" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IsActive" class="control-label"></label>
+                <input asp-for="IsActive" class="form-check-input" />
+                <span asp-validation-for="IsActive" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreatedDate" class="control-label"></label>
+                <input asp-for="CreatedDate" class="form-control" />
+                <span asp-validation-for="CreatedDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmployeeLeaves" class="control-label"></label>
+                <input asp-for="EmployeeLeaves" class="form-control" />
+                <span asp-validation-for="EmployeeLeaves" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

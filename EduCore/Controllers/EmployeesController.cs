@@ -131,13 +131,62 @@ namespace EduCore.Controllers
         //=========================================================
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Employee employee)
+        public async Task<IActionResult> Create(
+            Employee employee,
+            IFormFile? PhotoFile,
+            IFormFile? SignatureFile)
         {
             employee.EmployeeNumber =
                 await _employeeService.GenerateEmployeeNumberAsync();
 
             if (ModelState.IsValid)
             {
+                // Upload Employee Photo
+                if (PhotoFile != null && PhotoFile.Length > 0)
+                {
+                    string uploadsFolder = Path.Combine(
+                        Directory.GetCurrentDirectory(),
+                        "wwwroot",
+                        "images",
+                        "employees");
+
+                    string fileName =
+                        Guid.NewGuid().ToString() +
+                        Path.GetExtension(PhotoFile.FileName);
+
+                    string filePath =
+                        Path.Combine(uploadsFolder, fileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await PhotoFile.CopyToAsync(stream);
+                    }
+
+                    employee.PhotoPath = fileName;
+                }
+                // Upload Employee Signature
+                if (SignatureFile != null && SignatureFile.Length > 0)
+                {
+                    string uploadsFolder = Path.Combine(
+                        Directory.GetCurrentDirectory(),
+                        "wwwroot",
+                        "images",
+                        "signatures");
+
+                    string fileName =
+                        Guid.NewGuid().ToString() +
+                        Path.GetExtension(SignatureFile.FileName);
+
+                    string filePath =
+                        Path.Combine(uploadsFolder, fileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await SignatureFile.CopyToAsync(stream);
+                    }
+
+                    employee.SignaturePath = fileName;
+                }
                 _context.Employees.Add(employee);
 
                 await _context.SaveChangesAsync();
@@ -184,7 +233,11 @@ namespace EduCore.Controllers
         //=========================================================
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Employee employee)
+        public async Task<IActionResult> Edit(
+             int id,
+             Employee employee,
+             IFormFile? PhotoFile,
+             IFormFile? SignatureFile)
         {
             if (id != employee.EmployeeId)
                 return NotFound();
@@ -193,16 +246,92 @@ namespace EduCore.Controllers
             var existingEmployee = await _context.Employees
                 .AsNoTracking()
                 .FirstOrDefaultAsync(e => e.EmployeeId == id);
-
+            
             if (existingEmployee == null)
                 return NotFound();
-
+            // Keep existing Employee Number
             employee.EmployeeNumber = existingEmployee.EmployeeNumber;
+
+            // Keep existing photo
+            employee.PhotoPath = existingEmployee.PhotoPath;
+            // Keep Existing signature
+            employee.SignaturePath = existingEmployee.SignaturePath;
+            
 
             if (ModelState.IsValid)
             {
                 try
                 {
+                    // Upload new photo
+                    if (PhotoFile != null && PhotoFile.Length > 0)
+                    {
+                        string uploadsFolder = Path.Combine(
+                            Directory.GetCurrentDirectory(),
+                            "wwwroot",
+                            "images",
+                            "employees");
+
+                        string fileName = Guid.NewGuid().ToString()
+                            + Path.GetExtension(PhotoFile.FileName);
+
+                        string filePath = Path.Combine(uploadsFolder, fileName);
+
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await PhotoFile.CopyToAsync(stream);
+                        }
+
+                        // Delete old photo (if there is one)
+                        if (!string.IsNullOrEmpty(existingEmployee.PhotoPath))
+                        {
+                            string oldFile = Path.Combine(
+                                uploadsFolder,
+                                existingEmployee.PhotoPath);
+
+                            if (System.IO.File.Exists(oldFile))
+                            {
+                                System.IO.File.Delete(oldFile);
+                            }
+                        }
+
+                        employee.PhotoPath = fileName;
+                    }
+
+                    // Upload Employee Signature
+                    if (SignatureFile != null && SignatureFile.Length > 0)
+                    {
+                        string uploadsFolder = Path.Combine(
+                            Directory.GetCurrentDirectory(),
+                            "wwwroot",
+                            "images",
+                            "signatures");
+
+                        string fileName = Guid.NewGuid().ToString()
+                            + Path.GetExtension(SignatureFile.FileName);
+
+                        string filePath = Path.Combine(uploadsFolder, fileName);
+
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await SignatureFile.CopyToAsync(stream);
+                        }
+
+                        // Delete old signature
+                        if (!string.IsNullOrEmpty(existingEmployee.SignaturePath))
+                        {
+                            string oldFile = Path.Combine(
+                                uploadsFolder,
+                                existingEmployee.SignaturePath!);
+
+                            if (System.IO.File.Exists(oldFile))
+                            {
+                                System.IO.File.Delete(oldFile);
+                            }
+                        }
+
+                        employee.SignaturePath = fileName;
+                    }
+
                     _context.Update(employee);
 
                     await _context.SaveChangesAsync();

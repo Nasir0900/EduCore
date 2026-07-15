@@ -35,6 +35,9 @@ namespace EduCore.Models
         [Required]
         [Display(Name = "CNIC")]
         [StringLength(15)]
+        [RegularExpression(
+    @"^\d{5}-\d{7}-\d{1}$",
+    ErrorMessage = "CNIC must be in the format 42101-1234567-1.")]
         public string CNIC { get; set; } = string.Empty;
 
         [Required]
@@ -54,7 +57,10 @@ namespace EduCore.Models
         //=================================================
 
         [Display(Name = "Mobile Number")]
-        [StringLength(20)]
+        [StringLength(11)]
+        [RegularExpression(
+         @"^03\d{9}$",
+        ErrorMessage = "Enter a valid mobile number (e.g. 03001234567).")]
         public string? MobileNumber { get; set; }
 
         [Display(Name = "Email")]

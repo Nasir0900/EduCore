@@ -1,0 +1,155 @@
+@model IEnumerable<EduCore.Models.EmployeeLeave>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.LeaveNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmployeeId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employee)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LeaveTypeId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LeaveType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FromDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ToDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalDays)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Reason)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsHalfDay)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AttachmentPath)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExpectedRejoiningDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ActualRejoiningDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ApprovedByEmployeeId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ApprovedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ApprovalDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ApprovalRemarks)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsCancelled)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CancelledDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AppliedDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => item.LeaveNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.EmployeeId)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Employee)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.LeaveTypeId)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.LeaveType)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.FromDate)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.ToDate)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.TotalDays)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Reason)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.IsHalfDay)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.AttachmentPath)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.ExpectedRejoiningDate)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.ActualRejoiningDate)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.ApprovedByEmployeeId)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.ApprovedBy)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.ApprovalDate)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.ApprovalRemarks)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.IsCancelled)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.CancelledDate)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.AppliedDate)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.EmployeeLeaveId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.EmployeeLeaveId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.EmployeeLeaveId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

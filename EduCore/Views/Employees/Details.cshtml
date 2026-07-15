@@ -26,9 +26,18 @@
 
             <div class="col-md-3 text-center">
 
-                <img src="~/images/no-image.png"
-                     class="img-thumbnail"
-                     style="width:180px;height:220px;" />
+                @if (!string.IsNullOrEmpty(Model.PhotoPath))
+                {
+                    <img src="~/images/employees/@Model.PhotoPath"
+                         class="img-thumbnail"
+                         style="width:180px;height:220px;object-fit:cover;" />
+                }
+                else
+                {
+                    <img src="~/images/no-image.png"
+                         class="img-thumbnail"
+                         style="width:180px;height:220px;object-fit:cover;" />
+                }
 
                 <br /><br />
 
@@ -169,7 +178,24 @@
                 </table>
 
                 <hr />
+                <hr />
 
+                <h5 class="text-primary">
+                    Employee Signature
+                </h5>
+
+                @if (!string.IsNullOrEmpty(Model.SignaturePath))
+                {
+                    <img src="~/images/signatures/@Model.SignaturePath"
+                         class="img-thumbnail"
+                         style="height:80px;" />
+                }
+                else
+                {
+                    <p class="text-muted">
+                        No signature uploaded.
+                    </p>
+                }
                 <h5 class="text-primary">
                     Contact Information
                 </h5>

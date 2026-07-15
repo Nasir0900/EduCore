@@ -27,6 +27,10 @@ namespace EduCore.Data
 
         public DbSet<Employee> Employees { get; set; }
 
+        public DbSet<LeaveType> LeaveTypes { get; set; }
+
+        public DbSet<EmployeeLeave> EmployeeLeaves { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -80,6 +84,155 @@ namespace EduCore.Data
             modelBuilder.Entity<Department>()
                 .HasIndex(d => d.DepartmentCode)
                 .IsUnique();
+            //=====================================================
+            // Employee Leave Relationships
+            //=====================================================
+
+            modelBuilder.Entity<EmployeeLeave>()
+                .HasOne(e => e.Employee)
+                .WithMany()
+                .HasForeignKey(e => e.EmployeeId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<EmployeeLeave>()
+                .HasOne(e => e.ApprovedBy)
+                .WithMany()
+                .HasForeignKey(e => e.ApprovedByEmployeeId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<EmployeeLeave>()
+                .HasOne(e => e.LeaveType)
+                .WithMany(l => l.EmployeeLeaves)
+                .HasForeignKey(e => e.LeaveTypeId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<LeaveType>()
+                .Property(l => l.CreatedDate)
+                .HasDefaultValueSql("GETDATE()");
+
+            modelBuilder.Entity<LeaveType>().HasData(
+
+    new LeaveType
+    {
+        LeaveTypeId = 1,
+        LeaveCode = "CL",
+        LeaveTypeName = "Casual Leave",
+        MaximumDays = 10,
+        IsPaidLeave = true,
+        RequiresApproval = true,
+        RequiresDocuments = false,
+        AllowCarryForward = false,
+        AllowBackDateApplication = false,
+        AvailableAfterMonths = 0,
+        IsYearlyLimit = true,
+        DisplayOrder = 1,
+        IsActive = true
+    },
+
+    new LeaveType
+    {
+        LeaveTypeId = 2,
+        LeaveCode = "AL",
+        LeaveTypeName = "Annual Leave",
+        MaximumDays = 30,
+        IsPaidLeave = true,
+        RequiresApproval = true,
+        RequiresDocuments = false,
+        AllowCarryForward = true,
+        AllowBackDateApplication = false,
+        AvailableAfterMonths = 12,
+        IsYearlyLimit = true,
+        DisplayOrder = 2,
+        IsActive = true
+    },
+
+    new LeaveType
+    {
+        LeaveTypeId = 3,
+        LeaveCode = "ML",
+        LeaveTypeName = "Medical Leave",
+        MaximumDays = 20,
+        IsPaidLeave = true,
+        RequiresApproval = true,
+        RequiresDocuments = true,
+        AllowCarryForward = false,
+        AllowBackDateApplication = true,
+        AvailableAfterMonths = 0,
+        IsYearlyLimit = true,
+        DisplayOrder = 3,
+        IsActive = true
+    },
+
+    new LeaveType
+    {
+        LeaveTypeId = 4,
+        LeaveCode = "SL",
+        LeaveTypeName = "Study Leave",
+        MaximumDays = 365,
+        IsPaidLeave = true,
+        RequiresApproval = true,
+        RequiresDocuments = true,
+        AllowCarryForward = false,
+        AllowBackDateApplication = false,
+        AvailableAfterMonths = 24,
+        IsYearlyLimit = false,
+        DisplayOrder = 4,
+        IsActive = true
+    },
+
+    new LeaveType
+    {
+        LeaveTypeId = 5,
+        LeaveCode = "MAT",
+        LeaveTypeName = "Maternity Leave",
+        MaximumDays = 180,
+        IsPaidLeave = true,
+        RequiresApproval = true,
+        RequiresDocuments = true,
+        AllowCarryForward = false,
+        AllowBackDateApplication = false,
+        AvailableAfterMonths = 0,
+        IsYearlyLimit = false,
+        DisplayOrder = 5,
+        IsActive = true
+    },
+
+    new LeaveType
+    {
+        LeaveTypeId = 6,
+        LeaveCode = "PAT",
+        LeaveTypeName = "Paternity Leave",
+        MaximumDays = 15,
+        IsPaidLeave = true,
+        RequiresApproval = true,
+        RequiresDocuments = false,
+        AllowCarryForward = false,
+        AllowBackDateApplication = false,
+        AvailableAfterMonths = 0,
+        IsYearlyLimit = false,
+        DisplayOrder = 6,
+        IsActive = true
+    },
+
+    new LeaveType
+    {
+        LeaveTypeId = 7,
+        LeaveCode = "EOL",
+        LeaveTypeName = "Extraordinary Leave",
+        MaximumDays = 365,
+        IsPaidLeave = false,
+        RequiresApproval = true,
+        RequiresDocuments = true,
+        AllowCarryForward = false,
+        AllowBackDateApplication = false,
+        AvailableAfterMonths = 0,
+        IsYearlyLimit = false,
+        DisplayOrder = 7,
+        IsActive = true
+    }
+
+);
+
         }
     }
 }

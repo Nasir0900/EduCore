@@ -18,6 +18,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IAcademicStructureService, AcademicStructureService>();
 builder.Services.AddScoped<ICourseService, CourseService>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+builder.Services.AddScoped<ILeaveService, LeaveService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

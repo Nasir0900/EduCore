@@ -4,6 +4,7 @@ using EduCore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EduCore.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260715193825_SeedLeaveTypes")]
+    partial class SeedLeaveTypes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -374,9 +377,6 @@ namespace EduCore.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EmployeeLeaveId"));
 
-                    b.Property<DateTime?>("ActualRejoiningDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<DateTime>("AppliedDate")
                         .HasColumnType("datetime2");
 
@@ -390,40 +390,19 @@ namespace EduCore.Data.Migrations
                     b.Property<int?>("ApprovedByEmployeeId")
                         .HasColumnType("int");
 
-                    b.Property<string>("AttachmentPath")
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
-                    b.Property<DateTime?>("CancelledDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("EmployeeId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("ExpectedRejoiningDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<DateTime>("FromDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsCancelled")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsHalfDay")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("LeaveNumber")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
 
                     b.Property<int>("LeaveTypeId")
                         .HasColumnType("int");
 
                     b.Property<string>("Reason")
                         .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -431,8 +410,8 @@ namespace EduCore.Data.Migrations
                     b.Property<DateTime>("ToDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal>("TotalDays")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<int>("TotalDays")
+                        .HasColumnType("int");
 
                     b.HasKey("EmployeeLeaveId");
 

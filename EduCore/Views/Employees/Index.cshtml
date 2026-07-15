@@ -179,6 +179,7 @@
     <thead class="table-dark">
 
         <tr>
+            <th width="90">Photo</th>
 
             <th>Employee No</th>
 
@@ -207,7 +208,22 @@
             @foreach (var item in Model)
             {
                 <tr>
+                    <td class="text-center">
 
+                        @if (!string.IsNullOrEmpty(item.PhotoPath))
+                        {
+                            <img src="~/images/employees/@item.PhotoPath"
+                                 class="rounded-circle"
+                                 style="width:60px;height:60px;object-fit:cover;" />
+                        }
+                        else
+                        {
+                            <img src="~/images/no-image.png"
+                                 class="rounded-circle"
+                                 style="width:60px;height:60px;object-fit:cover;" />
+                        }
+
+                    </td>
                     <td>
 
                         <span class="badge bg-secondary">
@@ -304,7 +320,7 @@
         {
             <tr>
 
-                <td colspan="8"
+                <td colspan="9"
                     class="text-center text-muted">
 
                     No employees found.

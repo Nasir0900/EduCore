@@ -4,6 +4,7 @@ using EduCore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EduCore.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260715183553_AddLeaveManagement")]
+    partial class AddLeaveManagement
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -374,9 +377,6 @@ namespace EduCore.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EmployeeLeaveId"));
 
-                    b.Property<DateTime?>("ActualRejoiningDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<DateTime>("AppliedDate")
                         .HasColumnType("datetime2");
 
@@ -390,40 +390,19 @@ namespace EduCore.Data.Migrations
                     b.Property<int?>("ApprovedByEmployeeId")
                         .HasColumnType("int");
 
-                    b.Property<string>("AttachmentPath")
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
-                    b.Property<DateTime?>("CancelledDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("EmployeeId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("ExpectedRejoiningDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<DateTime>("FromDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsCancelled")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsHalfDay")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("LeaveNumber")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
 
                     b.Property<int>("LeaveTypeId")
                         .HasColumnType("int");
 
                     b.Property<string>("Reason")
                         .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -431,8 +410,8 @@ namespace EduCore.Data.Migrations
                     b.Property<DateTime>("ToDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal>("TotalDays")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<int>("TotalDays")
+                        .HasColumnType("int");
 
                     b.HasKey("EmployeeLeaveId");
 
@@ -509,19 +488,8 @@ namespace EduCore.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LeaveTypeId"));
 
-                    b.Property<bool>("AllowBackDateApplication")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("AllowCarryForward")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("AvailableAfterMonths")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreatedDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .HasMaxLength(300)
@@ -534,9 +502,6 @@ namespace EduCore.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsPaidLeave")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsYearlyLimit")
                         .HasColumnType("bit");
 
                     b.Property<string>("LeaveCode")
@@ -552,136 +517,9 @@ namespace EduCore.Data.Migrations
                     b.Property<int>("MaximumDays")
                         .HasColumnType("int");
 
-                    b.Property<bool>("RequiresApproval")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("RequiresDocuments")
-                        .HasColumnType("bit");
-
                     b.HasKey("LeaveTypeId");
 
                     b.ToTable("LeaveTypes");
-
-                    b.HasData(
-                        new
-                        {
-                            LeaveTypeId = 1,
-                            AllowBackDateApplication = false,
-                            AllowCarryForward = false,
-                            AvailableAfterMonths = 0,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DisplayOrder = 1,
-                            IsActive = true,
-                            IsPaidLeave = true,
-                            IsYearlyLimit = true,
-                            LeaveCode = "CL",
-                            LeaveTypeName = "Casual Leave",
-                            MaximumDays = 10,
-                            RequiresApproval = true,
-                            RequiresDocuments = false
-                        },
-                        new
-                        {
-                            LeaveTypeId = 2,
-                            AllowBackDateApplication = false,
-                            AllowCarryForward = true,
-                            AvailableAfterMonths = 12,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DisplayOrder = 2,
-                            IsActive = true,
-                            IsPaidLeave = true,
-                            IsYearlyLimit = true,
-                            LeaveCode = "AL",
-                            LeaveTypeName = "Annual Leave",
-                            MaximumDays = 30,
-                            RequiresApproval = true,
-                            RequiresDocuments = false
-                        },
-                        new
-                        {
-                            LeaveTypeId = 3,
-                            AllowBackDateApplication = true,
-                            AllowCarryForward = false,
-                            AvailableAfterMonths = 0,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DisplayOrder = 3,
-                            IsActive = true,
-                            IsPaidLeave = true,
-                            IsYearlyLimit = true,
-                            LeaveCode = "ML",
-                            LeaveTypeName = "Medical Leave",
-                            MaximumDays = 20,
-                            RequiresApproval = true,
-                            RequiresDocuments = true
-                        },
-                        new
-                        {
-                            LeaveTypeId = 4,
-                            AllowBackDateApplication = false,
-                            AllowCarryForward = false,
-                            AvailableAfterMonths = 24,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DisplayOrder = 4,
-                            IsActive = true,
-                            IsPaidLeave = true,
-                            IsYearlyLimit = false,
-                            LeaveCode = "SL",
-                            LeaveTypeName = "Study Leave",
-                            MaximumDays = 365,
-                            RequiresApproval = true,
-                            RequiresDocuments = true
-                        },
-                        new
-                        {
-                            LeaveTypeId = 5,
-                            AllowBackDateApplication = false,
-                            AllowCarryForward = false,
-                            AvailableAfterMonths = 0,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DisplayOrder = 5,
-                            IsActive = true,
-                            IsPaidLeave = true,
-                            IsYearlyLimit = false,
-                            LeaveCode = "MAT",
-                            LeaveTypeName = "Maternity Leave",
-                            MaximumDays = 180,
-                            RequiresApproval = true,
-                            RequiresDocuments = true
-                        },
-                        new
-                        {
-                            LeaveTypeId = 6,
-                            AllowBackDateApplication = false,
-                            AllowCarryForward = false,
-                            AvailableAfterMonths = 0,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DisplayOrder = 6,
-                            IsActive = true,
-                            IsPaidLeave = true,
-                            IsYearlyLimit = false,
-                            LeaveCode = "PAT",
-                            LeaveTypeName = "Paternity Leave",
-                            MaximumDays = 15,
-                            RequiresApproval = true,
-                            RequiresDocuments = false
-                        },
-                        new
-                        {
-                            LeaveTypeId = 7,
-                            AllowBackDateApplication = false,
-                            AllowCarryForward = false,
-                            AvailableAfterMonths = 0,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DisplayOrder = 7,
-                            IsActive = true,
-                            IsPaidLeave = false,
-                            IsYearlyLimit = false,
-                            LeaveCode = "EOL",
-                            LeaveTypeName = "Extraordinary Leave",
-                            MaximumDays = 365,
-                            RequiresApproval = true,
-                            RequiresDocuments = true
-                        });
                 });
 
             modelBuilder.Entity("EduCore.Models.Semester", b =>

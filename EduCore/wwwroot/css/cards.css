@@ -1,0 +1,196 @@
+﻿/*==================================================
+    CARD SYSTEM
+==================================================*/
+
+/* Base Card */
+
+.ec-card {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    overflow: hidden;
+}
+
+    .ec-card:hover {
+        transform: translateY(-6px);
+        box-shadow: var(--shadow-lg);
+    }
+
+/*==================================================
+    STAT CARD
+==================================================*/
+
+.stat-card {
+    background: var(--surface);
+    border-radius: 22px;
+    padding: 28px;
+    text-align: center;
+    height: 100%;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+
+    .stat-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-lg);
+    }
+
+.stat-icon {
+    width: 80px;
+    height: 80px;
+    margin: auto;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    color: white;
+}
+
+.stat-value {
+    font-size: 2.7rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1;
+}
+
+.stat-title {
+    margin-top: 12px;
+    color: var(--text-light);
+    font-weight: 600;
+}
+
+/*==================================================
+    MODULE CARD
+==================================================*/
+
+.module-card {
+    background: white;
+    border-radius: 22px;
+    padding: 30px;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    height: 100%;
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+}
+
+    .module-card:hover {
+        transform: translateY(-8px);
+        text-decoration: none;
+        color: inherit;
+        box-shadow: var(--shadow-lg);
+    }
+
+.module-icon {
+    width: 78px;
+    height: 78px;
+    border-radius: 20px;
+    background: linear-gradient( 135deg, var(--primary), var(--primary-light));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 2rem;
+    margin-bottom: 25px;
+}
+
+.module-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.module-description {
+    color: var(--text-light);
+    min-height: 70px;
+}
+
+.module-footer {
+    margin-top: 20px;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+/*==================================================
+    QUICK ACTION
+==================================================*/
+
+.quick-card {
+    background: linear-gradient( 135deg, var(--primary), var(--primary-light));
+    color: white;
+    border-radius: 18px;
+    padding: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+    .quick-card:hover {
+        color: white;
+        transform: translateY(-5px);
+        box-shadow: var(--shadow);
+    }
+
+/*==================================================
+    SECTION CARD
+==================================================*/
+
+.section-card {
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 30px;
+}
+
+.section-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+/*=========================================
+SELECTION TOOLBAR
+=========================================*/
+
+.selection-toolbar {
+    background: white;
+    border-radius: 18px;
+    padding: 18px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+    animation: fadeDown .25s ease;
+}
+
+.selection-left {
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+
+.selection-actions {
+    display: flex;
+    gap: 12px;
+}
+
+@keyframes fadeDown {
+
+    from {
+        opacity: 0;
+        transform: translateY(-12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

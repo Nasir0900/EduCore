@@ -1,0 +1,15 @@
+﻿@model EduCore.ViewModels.QuickActionViewModel
+
+<a asp-controller="@Model.Controller"
+   asp-action="@Model.Action"
+   class="quick-card">
+
+    <i class="bi @Model.Icon"></i>
+
+    <span>
+
+        @Model.Title
+
+    </span>
+
+</a>

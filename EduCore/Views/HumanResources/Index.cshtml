@@ -1,0 +1,284 @@
+﻿@model EduCore.ViewModels.HumanResources.HumanResourcesDashboardViewModel
+
+@using EduCore.ViewModels
+
+@{
+    ViewData["Title"] = "Human Resources";
+}
+
+@await Html.PartialAsync(
+    "Components/_PageHeader",
+    new PageHeaderViewModel
+    {
+        Title = "Human Resources",
+        Subtitle = "Manage employees, leave and HR operations",
+        Icon = "bi-people-fill"
+    })
+
+<div class="row g-4 mb-5">
+
+    <div class="col-lg-3">
+        @await Html.PartialAsync(
+            "Components/_StatCard",
+            new StatCardViewModel
+            {
+                Title = "Employees",
+                Value = Model.EmployeeCount.ToString(),
+                Icon = "bi-people-fill",
+                Color = "primary"
+            })
+    </div>
+
+    <div class="col-lg-3">
+        @await Html.PartialAsync(
+            "Components/_StatCard",
+            new StatCardViewModel
+            {
+                Title = "Teaching Staff",
+                Value = Model.TeachingStaffCount.ToString(),
+                Icon = "bi-mortarboard-fill",
+                Color = "success"
+            })
+    </div>
+
+    <div class="col-lg-3">
+        @await Html.PartialAsync(
+            "Components/_StatCard",
+            new StatCardViewModel
+            {
+                Title = "Non-Teaching",
+                Value = Model.NonTeachingStaffCount.ToString(),
+                Icon = "bi-person-workspace",
+                Color = "warning"
+            })
+    </div>
+
+    <div class="col-lg-3">
+        @await Html.PartialAsync(
+            "Components/_StatCard",
+            new StatCardViewModel
+            {
+                Title = "Pending Leave",
+                Value = Model.PendingLeaveCount.ToString(),
+                Icon = "bi-calendar-check-fill",
+                Color = "danger"
+            })
+    </div>
+
+</div>
+
+<h3 class="mb-4">
+    Quick Actions
+</h3>
+
+<div class="row g-4 mb-5">
+
+    <div class="col-lg-3">
+        @await Html.PartialAsync(
+            "Components/_QuickActionCard",
+            new QuickActionViewModel
+            {
+                Title = "New Employee",
+                Icon = "bi-person-plus-fill",
+                Controller = "Employees",
+                Action = "Create"
+            })
+    </div>
+
+    <div class="col-lg-3">
+        @await Html.PartialAsync(
+            "Components/_QuickActionCard",
+            new QuickActionViewModel
+            {
+                Title = "Apply Leave",
+                Icon = "bi-calendar-plus-fill",
+                Controller = "EmployeeLeaves",
+                Action = "Create"
+            })
+    </div>
+
+    <div class="col-lg-3">
+        @await Html.PartialAsync(
+            "Components/_QuickActionCard",
+            new QuickActionViewModel
+            {
+                Title = "Designations",
+                Icon = "bi-award-fill",
+                Controller = "Designations",
+                Action = "Index"
+            })
+    </div>
+
+    <div class="col-lg-3">
+        @await Html.PartialAsync(
+            "Components/_QuickActionCard",
+            new QuickActionViewModel
+            {
+                Title = "Employment Types",
+                Icon = "bi-briefcase-fill",
+                Controller = "EmploymentTypes",
+                Action = "Index"
+            })
+    </div>
+
+</div>
+
+<h3 class="mb-4">
+    HR Modules
+</h3>
+
+<div class="row g-4">
+
+    <div class="col-lg-4">
+        @await Html.PartialAsync(
+            "Components/_ModuleCard",
+            new ModuleCardViewModel
+            {
+                Title = "Employees",
+                Description = "Manage employee records and profiles.",
+                Icon = "bi-people-fill",
+                Controller = "Employees"
+            })
+    </div>
+
+    <div class="col-lg-4">
+        @await Html.PartialAsync(
+            "Components/_ModuleCard",
+            new ModuleCardViewModel
+            {
+                Title = "Leave Management",
+                Description = "Apply, approve and manage employee leave.",
+                Icon = "bi-calendar-check-fill",
+                Controller = "EmployeeLeaves"
+            })
+    </div>
+
+    <div class="col-lg-4">
+        @await Html.PartialAsync(
+            "Components/_ModuleCard",
+            new ModuleCardViewModel
+            {
+                Title = "Employment",
+                Description = "Designations and Employment Types.",
+                Icon = "bi-briefcase-fill",
+                Controller = "Designations"
+            })
+    </div>
+
+</div>
+<h3 class="mb-4">
+
+    Quick Actions
+
+</h3>
+
+<div class="row g-3 mb-5">
+
+    <div class="col-lg-3">
+
+        @await Html.PartialAsync(
+        "Components/_QuickActionCard",
+        new QuickActionViewModel
+        {
+            Title = "New Employee",
+            Icon = "bi-person-plus-fill",
+            Controller = "Employees",
+            Action = "Create"
+        })
+
+    </div>
+
+    <div class="col-lg-3">
+
+        @await Html.PartialAsync(
+        "Components/_QuickActionCard",
+        new QuickActionViewModel
+        {
+            Title = "Apply Leave",
+            Icon = "bi-calendar-plus-fill",
+            Controller = "EmployeeLeaves",
+            Action = "Create"
+        })
+
+    </div>
+
+    <div class="col-lg-3">
+
+        @await Html.PartialAsync(
+        "Components/_QuickActionCard",
+        new QuickActionViewModel
+        {
+            Title = "Designation",
+            Icon = "bi-award-fill",
+            Controller = "Designations",
+            Action = "Create"
+        })
+
+    </div>
+
+    <div class="col-lg-3">
+
+        @await Html.PartialAsync(
+        "Components/_QuickActionCard",
+        new QuickActionViewModel
+        {
+            Title = "Employment Type",
+            Icon = "bi-briefcase-fill",
+            Controller = "EmploymentTypes",
+            Action = "Create"
+        })
+
+    </div>
+
+</div>
+<h3 class="mb-4">
+
+HR Modules
+
+</h3>
+
+<div class="row g-4">
+
+<div class="col-lg-4">
+
+@await Html.PartialAsync(
+"Components/_ModuleCard",
+new ModuleCardViewModel
+{
+Title="Employees",
+Description="Employee profiles, service book and records",
+Icon="bi-people-fill",
+Controller="Employees"
+})
+
+</div>
+
+<div class="col-lg-4">
+
+@await Html.PartialAsync(
+"Components/_ModuleCard",
+new ModuleCardViewModel
+{
+Title="Leave Management",
+Description="Leave applications and approvals",
+Icon="bi-calendar-check-fill",
+Controller="EmployeeLeaves"
+})
+
+</div>
+
+<div class="col-lg-4">
+
+@await Html.PartialAsync(
+"Components/_ModuleCard",
+new ModuleCardViewModel
+{
+Title="Employment",
+Description="Designations and employment types",
+Icon="bi-briefcase-fill",
+Controller="Designations"
+})
+
+</div>
+
+</div>

@@ -1,0 +1,218 @@
+﻿@model EduCore.ViewModels.HumanResources.EmployeeWorkspaceViewModel
+
+@using EduCore.ViewModels
+@using EduCore.ViewModels.Workspace
+
+@{
+    ViewData["Title"] = "Employees";
+}
+
+@await Html.PartialAsync(
+    "Components/_WorkspaceHeader",
+    new WorkspaceViewModel
+    {
+        Title = "Employees",
+        Subtitle = "Manage employee records and HR operations",
+        Icon = "bi-people-fill",
+
+        PrimaryActionText = "New Employee",
+        PrimaryActionController = "Employees",
+        PrimaryActionAction = "Create",
+
+        SecondaryActionText = "Reports",
+        SecondaryActionController = "HumanResources",
+        SecondaryActionAction = "Index"
+    })
+
+<div class="row g-4 mb-4">
+
+    <div class="col-xl-3 col-md-6">
+
+        @await Html.PartialAsync(
+            "Components/_StatCard",
+            new StatCardViewModel
+            {
+                Title = "Employees",
+                Value = "0",
+                Icon = "bi-people-fill",
+                Color = "primary"
+            })
+
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+
+        @await Html.PartialAsync(
+            "Components/_StatCard",
+            new StatCardViewModel
+            {
+                Title = "Active",
+                Value = "0",
+                Icon = "bi-person-check-fill",
+                Color = "success"
+            })
+
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+
+        @await Html.PartialAsync(
+            "Components/_StatCard",
+            new StatCardViewModel
+            {
+                Title = "Teaching",
+                Value = "0",
+                Icon = "bi-mortarboard-fill",
+                Color = "warning"
+            })
+
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+
+        @await Html.PartialAsync(
+            "Components/_StatCard",
+            new StatCardViewModel
+            {
+                Title = "Non Teaching",
+                Value = "0",
+                Icon = "bi-briefcase-fill",
+                Color = "danger"
+            })
+
+    </div>
+
+</div>
+
+<h4 class="fw-bold mb-4">
+    Employee Management
+</h4>
+
+<div class="row g-4">
+
+    <div class="col-lg-4">
+
+        @await Html.PartialAsync(
+            "Components/_ModuleCard",
+            new ModuleCardViewModel
+            {
+                Title = "Employee Directory",
+                Description = "Browse, search and manage employees.",
+                Icon = "bi-person-lines-fill",
+                Controller = "Employees"
+            })
+
+    </div>
+
+    <div class="col-lg-4">
+
+        @await Html.PartialAsync(
+            "Components/_ModuleCard",
+            new ModuleCardViewModel
+            {
+                Title = "Leave Management",
+                Description = "Manage employee leave applications.",
+                Icon = "bi-calendar-check-fill",
+                Controller = "EmployeeLeaves"
+            })
+
+    </div>
+
+    <div class="col-lg-4">
+
+        @await Html.PartialAsync(
+            "Components/_ModuleCard",
+            new ModuleCardViewModel
+            {
+                Title = "Leave Types",
+                Description = "Configure leave policies.",
+                Icon = "bi-journal-check",
+                Controller = "LeaveTypes"
+            })
+
+    </div>
+
+    <div class="col-lg-4">
+
+        @await Html.PartialAsync(
+            "Components/_ModuleCard",
+            new ModuleCardViewModel
+            {
+                Title = "Designations",
+                Description = "Manage staff designations.",
+                Icon = "bi-award-fill",
+                Controller = "Designations"
+            })
+
+    </div>
+
+    <div class="col-lg-4">
+
+        @await Html.PartialAsync(
+            "Components/_ModuleCard",
+            new ModuleCardViewModel
+            {
+                Title = "Employment Types",
+                Description = "Permanent, Contract, Visiting etc.",
+                Icon = "bi-person-badge-fill",
+                Controller = "EmploymentTypes"
+            })
+
+    </div>
+
+    <div class="col-lg-4">
+
+        @await Html.PartialAsync(
+            "Components/_ModuleCard",
+            new ModuleCardViewModel
+            {
+                Title = "HR Reports",
+                Description = "Employee and leave reports.",
+                Icon = "bi-file-earmark-bar-graph-fill",
+                Controller = "HumanResources"
+            })
+
+    </div>
+
+</div>
+<div class="row g-4 mt-2">
+
+    <div class="col-lg-8">
+
+        @await Html.PartialAsync(
+            "Components/_RecentEmployees",
+            Model.RecentEmployees)
+
+    </div>
+
+    <div class="col-lg-4">
+
+        <div class="card shadow-sm border-0 rounded-4 h-100">
+
+            <div class="card-body text-center">
+
+                <h5 class="fw-bold">
+
+                    Pending Leave
+
+                </h5>
+
+                <h1 class="display-3 text-danger">
+
+                    @Model.PendingLeaveCount
+
+                </h1>
+
+                <p class="text-muted">
+
+                    Requests Awaiting Approval
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,24 @@
+﻿/*=========================================
+LAYOUT
+=========================================*/
+
+* {
+    box-sizing: border-box;
+}
+
+.main-content {
+    margin-left: var(--sidebar-width);
+    margin-top: var(--navbar-height);
+    padding: 32px;
+    min-height: 100vh;
+}
+
+.container-fluid {
+    padding: 0;
+}
+
+.card {
+    border: none;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+}

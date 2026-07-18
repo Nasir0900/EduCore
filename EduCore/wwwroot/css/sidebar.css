@@ -1,0 +1,57 @@
+﻿/*=========================================
+SIDEBAR
+=========================================*/
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: var(--sidebar-width);
+    height: 100vh;
+    background: #0F172A;
+    overflow-y: auto;
+    z-index: 1050;
+}
+
+.sidebar-header {
+    padding: 30px;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 20px 0;
+    margin: 0;
+}
+
+    .sidebar-menu li {
+        margin: 4px 0;
+    }
+
+    .sidebar-menu a {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 14px 24px;
+        color: #CBD5E1;
+        text-decoration: none;
+        transition: var(--transition);
+        border-left: 4px solid transparent;
+    }
+
+        .sidebar-menu a:hover {
+            background: #1E293B;
+            color: white;
+            border-left-color: var(--primary-light);
+        }
+
+        .sidebar-menu a.active {
+            background: var(--primary);
+            color: white;
+            border-left-color: white;
+        }
+
+    .sidebar-menu i {
+        width: 24px;
+        text-align: center;
+    }

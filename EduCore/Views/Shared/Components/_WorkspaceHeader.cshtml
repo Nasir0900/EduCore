@@ -1,0 +1,39 @@
+﻿@model EduCore.ViewModels.Workspace.WorkspaceViewModel
+
+<div class="workspace-header">
+
+    <div>
+
+        <div class="workspace-icon">
+
+            <i class="bi @Model.Icon"></i>
+
+        </div>
+
+        <h1>@Model.Title</h1>
+
+        <p>@Model.Subtitle</p>
+
+    </div>
+
+    <div class="workspace-actions">
+
+        <a asp-controller="@Model.PrimaryActionController"
+           asp-action="@Model.PrimaryActionAction"
+           class="btn btn-educore">
+
+            @Model.PrimaryActionText
+
+        </a>
+
+        <a asp-controller="@Model.SecondaryActionController"
+           asp-action="@Model.SecondaryActionAction"
+           class="btn btn-outline-primary">
+
+            @Model.SecondaryActionText
+
+        </a>
+
+    </div>
+
+</div>

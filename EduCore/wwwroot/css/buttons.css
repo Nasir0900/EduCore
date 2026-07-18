@@ -1,0 +1,32 @@
+﻿/*=========================================
+BUTTONS
+=========================================*/
+
+.btn {
+    border-radius: 12px;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.btn-educore {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 10px 22px;
+}
+
+    .btn-educore:hover {
+        background: var(--primary-light);
+        color: white;
+        transform: translateY(-2px);
+    }
+
+.btn-outline-primary {
+    border: 2px solid var(--primary);
+    color: var(--primary);
+}
+
+    .btn-outline-primary:hover {
+        background: var(--primary);
+        color: white;
+    }

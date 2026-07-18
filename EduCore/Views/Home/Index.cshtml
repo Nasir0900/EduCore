@@ -1,8 +1,320 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model EduCore.ViewModels.DashboardViewModel
+
+@using EduCore.ViewModels
+
+@{
+    ViewData["Title"] = "Dashboard";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="dashboard-hero">
+
+    <div>
+
+        <h5>@Model.Greeting</h5>
+
+        <h1>@Model.UserName</h1>
+
+        <p>
+            Welcome back to <strong>EduCore ERP</strong>.<br />
+            Manage your university from one place.
+        </p>
+
+        <small>
+            <i class="bi bi-calendar3"></i>
+            @Model.Today
+        </small>
+
+    </div>
+
+    <div class="hero-actions">
+
+        <a asp-controller="Employees"
+           asp-action="Create"
+           class="btn btn-educore">
+
+            <i class="bi bi-person-plus-fill"></i>
+            Add Employee
+
+        </a>
+
+        <a asp-controller="EmployeeLeaves"
+           asp-action="Create"
+           class="btn btn-outline-primary">
+
+            <i class="bi bi-calendar-plus-fill"></i>
+            Apply Leave
+
+        </a>
+
+    </div>
+
+</div>
+
+<div class="row g-4 mb-5">
+
+    <div class="col-xl-2 col-lg-4 col-md-6">
+
+        @await Html.PartialAsync(
+            "Components/_StatCard",
+            new StatCardViewModel
+            {
+                Title = "Employees",
+                Value = Model.EmployeeCount.ToString(),
+                Icon = "bi-people-fill",
+                Color = "primary"
+            })
+
+    </div>
+
+    <div class="col-xl-2 col-lg-4 col-md-6">
+
+        @await Html.PartialAsync(
+            "Components/_StatCard",
+            new StatCardViewModel
+            {
+                Title = "Faculties",
+                Value = Model.FacultyCount.ToString(),
+                Icon = "bi-building",
+                Color = "success"
+            })
+
+    </div>
+
+    <div class="col-xl-2 col-lg-4 col-md-6">
+
+        @await Html.PartialAsync(
+            "Components/_StatCard",
+            new StatCardViewModel
+            {
+                Title = "Departments",
+                Value = Model.DepartmentCount.ToString(),
+                Icon = "bi-diagram-3-fill",
+                Color = "warning"
+            })
+
+    </div>
+
+    <div class="col-xl-2 col-lg-4 col-md-6">
+
+        @await Html.PartialAsync(
+            "Components/_StatCard",
+            new StatCardViewModel
+            {
+                Title = "Courses",
+                Value = Model.CourseCount.ToString(),
+                Icon = "bi-book-fill",
+                Color = "info"
+            })
+
+    </div>
+
+    <div class="col-xl-2 col-lg-4 col-md-6">
+
+        @await Html.PartialAsync(
+            "Components/_StatCard",
+            new StatCardViewModel
+            {
+                Title = "Applications",
+                Value = Model.LeaveApplicationCount.ToString(),
+                Icon = "bi-file-earmark-text-fill",
+                Color = "secondary"
+            })
+
+    </div>
+
+    <div class="col-xl-2 col-lg-4 col-md-6">
+
+        @await Html.PartialAsync(
+            "Components/_StatCard",
+            new StatCardViewModel
+            {
+                Title = "Pending Leave",
+                Value = Model.PendingLeaveCount.ToString(),
+                Icon = "bi-calendar-check-fill",
+                Color = "danger"
+            })
+
+    </div>
+
+</div>
+
+<h3 class="mb-4 fw-bold">
+    Business Areas
+</h3>
+
+<div class="row g-4 mb-5">
+
+    <div class="col-lg-4">
+
+        @await Html.PartialAsync(
+            "Components/_ModuleCard",
+            new ModuleCardViewModel
+            {
+                Title = "Human Resources",
+                Description = "Employees, Leave, Designations, Employment Types",
+                Icon = "bi-people-fill",
+                Controller = "HumanResources"
+            })
+
+    </div>
+
+    <div class="col-lg-4">
+
+        @await Html.PartialAsync(
+            "Components/_ModuleCard",
+            new ModuleCardViewModel
+            {
+                Title = "Academics",
+                Description = "Faculties, Departments, Programs, Courses",
+                Icon = "bi-mortarboard-fill",
+                Controller = "Academic"
+            })
+
+    </div>
+
+    <div class="col-lg-4">
+
+        @await Html.PartialAsync(
+            "Components/_ModuleCard",
+            new ModuleCardViewModel
+            {
+                Title = "Students",
+                Description = "Admissions, Registration, Attendance, Results",
+                Icon = "bi-person-vcard-fill",
+                Controller = "#"
+            })
+
+    </div>
+
+    <div class="col-lg-4">
+
+        @await Html.PartialAsync(
+            "Components/_ModuleCard",
+            new ModuleCardViewModel
+            {
+                Title = "Finance",
+                Description = "Payroll, Fees, Accounts, Budget",
+                Icon = "bi-cash-stack",
+                Controller = "#"
+            })
+
+    </div>
+
+    <div class="col-lg-4">
+
+        @await Html.PartialAsync(
+            "Components/_ModuleCard",
+            new ModuleCardViewModel
+            {
+                Title = "Library",
+                Description = "Books, Borrowing, Returns, Inventory",
+                Icon = "bi-book-half",
+                Controller = "#"
+            })
+
+    </div>
+
+    <div class="col-lg-4">
+
+        @await Html.PartialAsync(
+            "Components/_ModuleCard",
+            new ModuleCardViewModel
+            {
+                Title = "Administration",
+                Description = "Users, Roles, Permissions, Settings",
+                Icon = "bi-gear-fill",
+                Controller = "#"
+            })
+
+    </div>
+
+</div>
+
+<div class="row g-4">
+
+    <div class="col-lg-6">
+
+        <div class="card shadow-sm border-0 rounded-4">
+
+            <div class="card-header bg-white border-0">
+
+                <h5 class="fw-bold mb-0">
+
+                    <i class="bi bi-clock-history"></i>
+                    Recent Activity
+
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <ul class="list-group list-group-flush">
+
+                    <li class="list-group-item">
+                        Employee record created
+                    </li>
+
+                    <li class="list-group-item">
+                        Leave application submitted
+                    </li>
+
+                    <li class="list-group-item">
+                        New course added
+                    </li>
+
+                    <li class="list-group-item">
+                        Department updated
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-6">
+
+        <div class="card shadow-sm border-0 rounded-4">
+
+            <div class="card-header bg-white border-0">
+
+                <h5 class="fw-bold mb-0">
+
+                    <i class="bi bi-bell-fill"></i>
+                    Notifications
+
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <div class="alert alert-warning">
+
+                    <strong>@Model.PendingLeaveCount</strong>
+                    Pending Leave Request(s)
+
+                </div>
+
+                <div class="alert alert-info">
+
+                    Academic Session information will appear here.
+
+                </div>
+
+                <div class="alert alert-success">
+
+                    Welcome to EduCore ERP.
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </div>

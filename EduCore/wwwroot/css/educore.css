@@ -1,0 +1,38 @@
+﻿/*=========================================
+    EDUCORE UI FRAMEWORK
+=========================================*/
+
+
+:root {
+    --primary: #1E3A8A;
+    --primary-light: #2563EB;
+    --success: #16A34A;
+    --warning: #F59E0B;
+    --danger: #DC2626;
+    --info: #0EA5E9;
+    --sidebar-width: 240px;
+    --navbar-height: 72px;
+    --background: #F5F7FB;
+    --surface: #FFFFFF;
+    --text: #111827;
+    --text-light: #6B7280;
+    --border: #E5E7EB;
+    --radius-sm: 10px;
+    --radius: 16px;
+    --radius-lg: 22px;
+    --shadow-sm: 0 2px 8px rgba(0,0,0,.04);
+    --shadow: 0 8px 24px rgba(0,0,0,.08);
+    --shadow-lg: 0 20px 45px rgba(0,0,0,.12);
+    --transition: .25s ease;
+}
+
+html {
+    font-size: 15px;
+}
+
+body {
+    margin: 0;
+    background: var(--background);
+    color: var(--text);
+    font-family: "Segoe UI",sans-serif;
+}

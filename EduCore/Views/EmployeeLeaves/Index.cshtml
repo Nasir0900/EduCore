@@ -1,155 +1,170 @@
 @model IEnumerable<EduCore.Models.EmployeeLeave>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Employee Leaves";
 }
 
-<h1>Index</h1>
+<h2 class="mb-4">Employee Leave Applications</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show">
+
+        @TempData["Success"]
+
+        <button type="button"
+                class="btn-close"
+                data-bs-dismiss="alert">
+        </button>
+
+    </div>
+}
+
+<div class="mb-3">
+
+    <a asp-action="Create"
+       class="btn btn-primary">
+
+        Apply Leave
+
+    </a>
+
+</div>
+
+<table class="table table-bordered table-hover align-middle">
+
+    <thead class="table-dark">
+
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.LeaveNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EmployeeId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Employee)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LeaveTypeId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LeaveType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FromDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ToDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TotalDays)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Reason)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsHalfDay)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AttachmentPath)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ExpectedRejoiningDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ActualRejoiningDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ApprovedByEmployeeId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ApprovedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ApprovalDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ApprovalRemarks)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsCancelled)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CancelledDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AppliedDate)
-            </th>
-            <th></th>
+
+            <th>Leave No.</th>
+
+            <th>Employee</th>
+
+            <th>Leave Type</th>
+
+            <th>From</th>
+
+            <th>To</th>
+
+            <th>Total Days</th>
+
+            <th>Status</th>
+
+            <th>Applied</th>
+
+            <th width="220">Actions</th>
+
         </tr>
+
     </thead>
+
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(model => item.LeaveNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.EmployeeId)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.Employee)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.LeaveTypeId)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.LeaveType)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.FromDate)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.ToDate)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.TotalDays)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.Reason)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.IsHalfDay)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.AttachmentPath)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.ExpectedRejoiningDate)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.ActualRejoiningDate)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.Status)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.ApprovedByEmployeeId)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.ApprovedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.ApprovalDate)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.ApprovalRemarks)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.IsCancelled)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.CancelledDate)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.AppliedDate)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.EmployeeLeaveId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.EmployeeLeaveId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.EmployeeLeaveId">Delete</a>
-            </td>
-        </tr>
-}
+
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+
+                    <span class="badge bg-secondary">
+
+                        @item.LeaveNumber
+
+                    </span>
+
+                </td>
+
+                <td>
+
+                    @item.Employee?.FullName
+
+                </td>
+
+                <td>
+
+                    @item.LeaveType?.LeaveTypeName
+
+                </td>
+
+                <td>
+
+                    @item.FromDate.ToShortDateString()
+
+                </td>
+
+                <td>
+
+                    @item.ToDate.ToShortDateString()
+
+                </td>
+
+                <td>
+
+                    @item.TotalDays
+
+                </td>
+
+                <td>
+
+                    @switch (item.Status)
+                    {
+                        case EduCore.Enums.LeaveStatus.Pending:
+                            <span class="badge bg-warning text-dark">Pending</span>
+                            break;
+
+                        case EduCore.Enums.LeaveStatus.Approved:
+                            <span class="badge bg-success">Approved</span>
+                            break;
+
+                        case EduCore.Enums.LeaveStatus.Rejected:
+                            <span class="badge bg-danger">Rejected</span>
+                            break;
+
+                        case EduCore.Enums.LeaveStatus.Cancelled:
+                            <span class="badge bg-secondary">Cancelled</span>
+                            break;
+                    }
+
+                </td>
+
+                <td>
+
+                    @item.AppliedDate.ToShortDateString()
+
+                </td>
+
+                <td>
+
+                    <a asp-action="Details"
+                       asp-route-employeeleaveid="@item.EmployeeLeaveId"
+                       class="btn btn-info btn-sm text-white">
+
+                        Details
+
+                    </a>
+
+                    <a asp-action="Edit"
+                       asp-route-employeeleaveid="@item.EmployeeLeaveId"
+                       class="btn btn-warning btn-sm">
+
+                        Edit
+
+                    </a>
+
+                    <a asp-action="Delete"
+                       asp-route-employeeleaveid="@item.EmployeeLeaveId"
+                       class="btn btn-danger btn-sm">
+
+                        Delete
+
+                    </a>
+
+                </td>
+
+            </tr>
+        }
+
     </tbody>
+
 </table>

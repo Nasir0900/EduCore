@@ -1,25 +1,52 @@
-using EduCore.Models;
+using EduCore.Data;
+using EduCore.Enums;
+using EduCore.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
+using Microsoft.EntityFrameworkCore;
 
-namespace EduCore.Controllers
+namespace EduCore.Controllers;
+
+public class HomeController(ApplicationDbContext context) : Controller
 {
-    public class HomeController : Controller
+    public async Task<IActionResult> Index()
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+        string greeting;
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+        if (DateTime.Now.Hour < 12)
+            greeting = "Good Morning";
+        else if (DateTime.Now.Hour < 17)
+            greeting = "Good Afternoon";
+        else
+            greeting = "Good Evening";
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        DashboardViewModel vm = new()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+            EmployeeCount =
+                await context.Employees.CountAsync(),
+
+            FacultyCount =
+                await context.Faculties.CountAsync(),
+
+            DepartmentCount =
+                await context.Departments.CountAsync(),
+
+            CourseCount =
+                await context.Courses.CountAsync(),
+
+            LeaveApplicationCount =
+                await context.EmployeeLeaves.CountAsync(),
+
+            PendingLeaveCount =
+                await context.EmployeeLeaves.CountAsync(
+                    x => x.Status == LeaveStatus.Pending),
+
+            Greeting = greeting,
+
+            UserName = User.Identity?.Name ?? "Administrator",
+
+            Today = DateTime.Now.ToString("dddd, dd MMMM yyyy")
+        };
+
+        return View(vm);
     }
 }

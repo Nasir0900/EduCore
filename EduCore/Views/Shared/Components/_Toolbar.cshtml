@@ -1,0 +1,17 @@
+﻿@model EduCore.ViewModels.Shared.ToolbarViewModel
+
+<div class="toolbar">
+
+    <h3>@Model.Title</h3>
+
+    <a asp-controller="@Model.CreateController"
+       asp-action="@Model.CreateAction"
+       class="btn btn-educore">
+
+        <i class="bi bi-plus-circle"></i>
+
+        @Model.CreateButtonText
+
+    </a>
+
+</div>

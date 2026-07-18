@@ -1,0 +1,102 @@
+﻿@using EduCore.ViewModels
+
+@{
+    ViewData["Title"] = "Academic Management";
+}
+
+@await Html.PartialAsync(
+    "Components/_PageHeader",
+    new PageHeaderViewModel
+    {
+        Title = "Academic Management",
+        Subtitle = "Manage faculties, departments and academic structure",
+        Icon = "bi-mortarboard-fill"
+    })
+
+<div class="row g-4">
+
+    <div class="col-lg-4">
+
+        @await Html.PartialAsync(
+            "Components/_ModuleCard",
+            new ModuleCardViewModel
+            {
+                Title = "Faculties",
+                Description = "Manage faculties",
+                Icon = "bi-building",
+                Controller = "Faculties"
+            })
+
+    </div>
+
+    <div class="col-lg-4">
+
+        @await Html.PartialAsync(
+            "Components/_ModuleCard",
+            new ModuleCardViewModel
+            {
+                Title = "Departments",
+                Description = "Manage departments",
+                Icon = "bi-diagram-3-fill",
+                Controller = "Departments"
+            })
+
+    </div>
+
+    <div class="col-lg-4">
+
+        @await Html.PartialAsync(
+            "Components/_ModuleCard",
+            new ModuleCardViewModel
+            {
+                Title = "Programs",
+                Description = "Manage academic programs",
+                Icon = "bi-journal-bookmark-fill",
+                Controller = "AcademicPrograms"
+            })
+
+    </div>
+
+    <div class="col-lg-4">
+
+        @await Html.PartialAsync(
+            "Components/_ModuleCard",
+            new ModuleCardViewModel
+            {
+                Title = "Sessions",
+                Description = "Academic sessions",
+                Icon = "bi-calendar3",
+                Controller = "AcademicSessions"
+            })
+
+    </div>
+
+    <div class="col-lg-4">
+
+        @await Html.PartialAsync(
+            "Components/_ModuleCard",
+            new ModuleCardViewModel
+            {
+                Title = "Semesters",
+                Description = "Manage semesters",
+                Icon = "bi-book-half",
+                Controller = "Semesters"
+            })
+
+    </div>
+
+    <div class="col-lg-4">
+
+        @await Html.PartialAsync(
+            "Components/_ModuleCard",
+            new ModuleCardViewModel
+            {
+                Title = "Courses",
+                Description = "Manage courses",
+                Icon = "bi-book-fill",
+                Controller = "Courses"
+            })
+
+    </div>
+
+</div>

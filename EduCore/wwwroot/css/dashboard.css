@@ -1,0 +1,43 @@
+﻿/*=========================================
+DASHBOARD HERO
+=========================================*/
+
+.dashboard-hero {
+    background: linear-gradient(135deg,#1E3A8A,#2563EB);
+    border-radius: 24px;
+    padding: 45px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-bottom: 35px;
+    box-shadow: var(--shadow);
+}
+
+    .dashboard-hero h5 {
+        opacity: .85;
+        font-weight: 500;
+    }
+
+    .dashboard-hero h1 {
+        font-size: 3rem;
+        font-weight: 700;
+        margin: 10px 0;
+    }
+
+    .dashboard-hero p {
+        opacity: .9;
+        max-width: 500px;
+    }
+
+    .dashboard-hero small {
+        opacity: .75;
+    }
+
+.hero-actions {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}

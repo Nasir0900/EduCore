@@ -1,9 +1,11 @@
 ﻿using EduCore.Data;
 using EduCore.Interfaces;
 using EduCore.Models;
+using EduCore.ViewModels.HumanResources;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+
 
 namespace EduCore.Controllers
 {
@@ -84,33 +86,52 @@ namespace EduCore.Controllers
             }
 
             // Dropdowns
-            ViewBag.FacultyId = new SelectList(
-                _context.Faculties.OrderBy(f => f.FacultyName),
-                "FacultyId",
-                "FacultyName",
-                facultyId);
+            var employeeList = await employees
+    .OrderBy(e => e.EmployeeNumber)
+    .ToListAsync();
 
-            ViewBag.DepartmentId = new SelectList(
-                _context.Departments.OrderBy(d => d.DepartmentName),
-                "DepartmentId",
-                "DepartmentName",
-                departmentId);
+            var vm = new EmployeeIndexViewModel
+            {
+                Employees = employeeList,
 
-            ViewBag.DesignationId = new SelectList(
-                _context.Designations.OrderBy(d => d.DisplayOrder),
-                "DesignationId",
-                "DesignationName",
-                designationId);
+                SearchString = searchString,
 
-            ViewBag.EmploymentTypeId = new SelectList(
-                _context.EmploymentTypes.OrderBy(e => e.DisplayOrder),
-                "EmploymentTypeId",
-                "EmploymentTypeName",
-                employmentTypeId);
+                FacultyId = facultyId,
 
-            return View(await employees
-                .OrderBy(e => e.EmployeeNumber)
-                .ToListAsync());
+                DepartmentId = departmentId,
+
+                DesignationId = designationId,
+
+                EmploymentTypeId = employmentTypeId,
+
+                IsActive = isActive,
+
+                Faculties = new SelectList(
+                    _context.Faculties.OrderBy(f => f.FacultyName),
+                    "FacultyId",
+                    "FacultyName",
+                    facultyId),
+
+                Departments = new SelectList(
+                    _context.Departments.OrderBy(d => d.DepartmentName),
+                    "DepartmentId",
+                    "DepartmentName",
+                    departmentId),
+
+                Designations = new SelectList(
+                    _context.Designations.OrderBy(d => d.DisplayOrder),
+                    "DesignationId",
+                    "DesignationName",
+                    designationId),
+
+                EmploymentTypes = new SelectList(
+                    _context.EmploymentTypes.OrderBy(e => e.DisplayOrder),
+                    "EmploymentTypeId",
+                    "EmploymentTypeName",
+                    employmentTypeId)
+            };
+
+            return View(vm);
         }
         //=========================================================
         // CREATE (GET)
